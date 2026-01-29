@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище HrManagementModelContainer" CdmEntityContainer="HrManagementEntities">
+    <EntitySetMapping Name="Calendar">
+      <EntityTypeMapping TypeName="HrManagementModel.Calendar">
+        <MappingFragment StoreEntitySet="Calendar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdWorkingCalendar" ColumnName="IdWorkingCalendar" />
+          <ScalarProperty Name="IdLearningCalendar" ColumnName="IdLearningCalendar" />
+          <ScalarProperty Name="IdVacationCalendar" ColumnName="IdVacationCalendar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="HrManagementModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameDepartment" ColumnName="NameDepartment" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee">
+      <EntityTypeMapping TypeName="HrManagementModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="PersonalPhone" ColumnName="PersonalPhone" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="IdEmployeeDepartment" ColumnName="IdEmployeeDepartment" />
+          <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
+          <ScalarProperty Name="DirectSupervisor" ColumnName="DirectSupervisor" />
+          <ScalarProperty Name="AssistantEmployee" ColumnName="AssistantEmployee" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmployeeOffice" ColumnName="EmployeeOffice" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="CalendarEmployee" ColumnName="CalendarEmployee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HrEvent">
+      <EntityTypeMapping TypeName="HrManagementModel.HrEvent">
+        <MappingFragment StoreEntitySet="HrEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="typeEventId" ColumnName="typeEventId" />
+          <ScalarProperty Name="EventStatus" ColumnName="EventStatus" />
+          <ScalarProperty Name="DateEvent" ColumnName="DateEvent" />
+          <ScalarProperty Name="ResponsiblePerson" ColumnName="ResponsiblePerson" />
+          <ScalarProperty Name="DescriptionEvent" ColumnName="DescriptionEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LearningCalendar">
+      <EntityTypeMapping TypeName="HrManagementModel.LearningCalendar">
+        <MappingFragment StoreEntitySet="LearningCalendar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdEvent" ColumnName="IdEvent" />
+          <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Material">
+      <EntityTypeMapping TypeName="HrManagementModel.Material">
+        <MappingFragment StoreEntitySet="Material">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameMaterial" ColumnName="NameMaterial" />
+          <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="StatusMaterial" ColumnName="StatusMaterial" />
+          <ScalarProperty Name="TypeMaterial" ColumnName="TypeMaterial" />
+          <ScalarProperty Name="AreaMaterial" ColumnName="AreaMaterial" />
+          <ScalarProperty Name="AuthorMaterial" ColumnName="AuthorMaterial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Position">
+      <EntityTypeMapping TypeName="HrManagementModel.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NamePosition" ColumnName="NamePosition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="HrManagementModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="typeEvent">
+      <EntityTypeMapping TypeName="HrManagementModel.typeEvent">
+        <MappingFragment StoreEntitySet="typeEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameEvent" ColumnName="NameEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VacationCalendar">
+      <EntityTypeMapping TypeName="HrManagementModel.VacationCalendar">
+        <MappingFragment StoreEntitySet="VacationCalendar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BeginVacation" ColumnName="BeginVacation" />
+          <ScalarProperty Name="EndVacation" ColumnName="EndVacation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkingCalendar">
+      <EntityTypeMapping TypeName="HrManagementModel.WorkingCalendar">
+        <MappingFragment StoreEntitySet="WorkingCalendar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ExceptionDate" ColumnName="ExceptionDate" />
+          <ScalarProperty Name="IsWorkingDay" ColumnName="IsWorkingDay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

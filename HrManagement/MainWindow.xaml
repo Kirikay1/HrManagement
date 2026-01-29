@@ -1,0 +1,45 @@
+﻿<Window x:Class="HrManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HrManagement"
+        mc:Ignorable="d"
+        Title="MainWiow" Height="450" Width="800">
+    <Grid x:Name="asd">
+        
+        
+        <Border Background="#77B34B"
+            CornerRadius="100"
+            Width="70" Height="70"/>
+        <TextBlock Text="Логотип" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+
+
+        <Border Background="LightBlue"      
+            CornerRadius="15"
+            Padding="10"
+            BorderBrush="DarkBlue"
+            BorderThickness="2"
+            HorizontalAlignment="Left"
+        VerticalAlignment="Center" Grid.Column="1">
+            <TextBlock Text="Привет, мир!"  
+               FontSize="16"
+               FontWeight="Bold"
+               TextAlignment="Center"/>
+        </Border>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище HrManagementModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Calendar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdWorkingCalendar" Type="bigint" />
+    <Property Name="IdLearningCalendar" Type="int" />
+    <Property Name="IdVacationCalendar" Type="int" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameDepartment" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ParentId" Type="int" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="PersonalPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="BirthDate" Type="date" />
+    <Property Name="IdEmployeeDepartment" Type="int" Nullable="false" />
+    <Property Name="IdPosition" Type="int" Nullable="false" />
+    <Property Name="DirectSupervisor" Type="int" />
+    <Property Name="AssistantEmployee" Type="int" />
+    <Property Name="WorkPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmployeeOffice" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Other" Type="nvarchar" MaxLength="1000" />
+    <Property Name="CalendarEmployee" Type="int" />
+  </EntityType>
+  <EntityType Name="HrEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typeEventId" Type="int" Nullable="false" />
+    <Property Name="EventStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateEvent" Type="datetime" Nullable="false" />
+    <Property Name="ResponsiblePerson" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="DescriptionEvent" Type="nvarchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LearningCalendar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEvent" Type="int" Nullable="false" />
+    <Property Name="IdMaterial" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Material">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameMaterial" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="ApprovalDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="StatusMaterial" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TypeMaterial" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="AreaMaterial" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="AuthorMaterial" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NamePosition" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="typeEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameEvent" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VacationCalendar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BeginVacation" Type="date" Nullable="false" />
+    <Property Name="EndVacation" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkingCalendar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExceptionDate" Type="date" Nullable="false" />
+    <Property Name="IsWorkingDay" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Calendar__IdLear__46E78A0C">
+    <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="0..1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LearningCalendar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="IdLearningCalendar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Calendar__IdVaca__47DBAE45">
+    <End Role="VacationCalendar" Type="Self.VacationCalendar" Multiplicity="0..1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VacationCalendar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="IdVacationCalendar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Calendar__IdWork__45F365D3">
+    <End Role="WorkingCalendar" Type="Self.WorkingCalendar" Multiplicity="0..1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkingCalendar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="IdWorkingCalendar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Departmen__Paren__4CA06362">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Department1" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__Assist__52593CB8">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee1">
+        <PropertyRef Name="AssistantEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__Calend__534D60F1">
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Calendar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="CalendarEmployee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__Direct__5165187F">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Employee1" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee1">
+        <PropertyRef Name="DirectSupervisor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__IdEmpl__4F7CD00D">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="IdEmployeeDepartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__IdPosi__5070F446">
+    <End Role="Position" Type="Self.Position" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="IdPosition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HrEvent__typeEve__398D8EEE">
+    <End Role="typeEvent" Type="Self.typeEvent" Multiplicity="1" />
+    <End Role="HrEvent" Type="Self.HrEvent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typeEvent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HrEvent">
+        <PropertyRef Name="typeEventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LearningC__IdEve__3E52440B">
+    <End Role="HrEvent" Type="Self.HrEvent" Multiplicity="1" />
+    <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HrEvent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LearningCalendar">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LearningC__IdMat__3F466844">
+    <End Role="Material" Type="Self.Material" Multiplicity="1" />
+    <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LearningCalendar">
+        <PropertyRef Name="IdMaterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище HrManagementModelContainer">
+    <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HrEvent" EntityType="Self.HrEvent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LearningCalendar" EntityType="Self.LearningCalendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="typeEvent" EntityType="Self.typeEvent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VacationCalendar" EntityType="Self.VacationCalendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkingCalendar" EntityType="Self.WorkingCalendar" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Calendar__IdLear__46E78A0C" Association="Self.FK__Calendar__IdLear__46E78A0C">
+      <End Role="LearningCalendar" EntitySet="LearningCalendar" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Calendar__IdVaca__47DBAE45" Association="Self.FK__Calendar__IdVaca__47DBAE45">
+      <End Role="VacationCalendar" EntitySet="VacationCalendar" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Calendar__IdWork__45F365D3" Association="Self.FK__Calendar__IdWork__45F365D3">
+      <End Role="WorkingCalendar" EntitySet="WorkingCalendar" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Departmen__Paren__4CA06362" Association="Self.FK__Departmen__Paren__4CA06362">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Department1" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__Assist__52593CB8" Association="Self.FK__Employee__Assist__52593CB8">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee1" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__Calend__534D60F1" Association="Self.FK__Employee__Calend__534D60F1">
+      <End Role="Calendar" EntitySet="Calendar" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__Direct__5165187F" Association="Self.FK__Employee__Direct__5165187F">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Employee1" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__IdEmpl__4F7CD00D" Association="Self.FK__Employee__IdEmpl__4F7CD00D">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__IdPosi__5070F446" Association="Self.FK__Employee__IdPosi__5070F446">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HrEvent__typeEve__398D8EEE" Association="Self.FK__HrEvent__typeEve__398D8EEE">
+      <End Role="typeEvent" EntitySet="typeEvent" />
+      <End Role="HrEvent" EntitySet="HrEvent" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LearningC__IdEve__3E52440B" Association="Self.FK__LearningC__IdEve__3E52440B">
+      <End Role="HrEvent" EntitySet="HrEvent" />
+      <End Role="LearningCalendar" EntitySet="LearningCalendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LearningC__IdMat__3F466844" Association="Self.FK__LearningC__IdMat__3F466844">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="LearningCalendar" EntitySet="LearningCalendar" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
