@@ -1,26 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\maksi\\Desktop\\HrManagement\\",
+  "WorkspaceRootPath": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\desktop\\hrmanagement\\hrmanagement\\views\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\views\\window1.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\hrmanagement\\hrmanagement\\views\\hrmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\views\\hrmanagementpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\desktop\\hrmanagement\\hrmanagement\\views\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\views\\window1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|C:\\Users\\maksi\\Desktop\\HrManagement\\hrmanagement\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\desktop\\hrmanagement\\hrmanagement\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\hrmanagement\\hrmanagement\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\desktop\\hrmanagement\\hrmanagement\\model\\appdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\model\\appdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\hrmanagement\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,15 +22,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Bookmark",
@@ -47,10 +43,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Bookmark",
@@ -74,62 +66,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AppData.cs",
-              "DocumentMoniker": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\Model\\AppData.cs",
-              "RelativeDocumentMoniker": "HrManagement\\Model\\AppData.cs",
-              "ToolTip": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\Model\\AppData.cs",
-              "RelativeToolTip": "HrManagement\\Model\\AppData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "HrManagementPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\HrManagement\\Views\\HrManagementPage.xaml.cs",
+              "RelativeDocumentMoniker": "HrManagement\\Views\\HrManagementPage.xaml.cs",
+              "ToolTip": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\HrManagement\\Views\\HrManagementPage.xaml.cs",
+              "RelativeToolTip": "HrManagement\\Views\\HrManagementPage.xaml.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAUwDUAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-29T15:32:44.835Z",
+              "WhenOpened": "2026-01-30T09:32:39.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Window1.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\Views\\Window1.xaml.cs",
-              "RelativeDocumentMoniker": "HrManagement\\Views\\Window1.xaml.cs",
-              "ToolTip": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\Views\\Window1.xaml.cs",
-              "RelativeToolTip": "HrManagement\\Views\\Window1.xaml.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAEwCQAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-29T15:33:22.061Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Window1.xaml",
-              "DocumentMoniker": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\Views\\Window1.xaml",
-              "RelativeDocumentMoniker": "HrManagement\\Views\\Window1.xaml",
-              "ToolTip": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\Views\\Window1.xaml",
-              "RelativeToolTip": "HrManagement\\Views\\Window1.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-29T15:33:13.332Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\HrManagement\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "HrManagement\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\HrManagement\\MainWindow.xaml.cs",
               "RelativeToolTip": "HrManagement\\MainWindow.xaml.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAhwC0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-29T11:18:17.183Z",
+              "WhenOpened": "2026-01-30T09:32:29.934Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\HrManagement\\MainWindow.xaml",
               "RelativeDocumentMoniker": "HrManagement\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\maksi\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\HrManagement\\HrManagement\\MainWindow.xaml",
               "RelativeToolTip": "HrManagement\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-01-29T09:59:11.646Z",
