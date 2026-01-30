@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HrManagement.Views"
         mc:Ignorable="d"
-        Title="Wind" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Wid" Height="450" Width="800">
+
 </Window>

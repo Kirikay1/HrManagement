@@ -8,5 +8,6 @@ namespace HrManagement.Model
 {
     internal class AppData
     {
+        public static HrManagementEntities db = new HrManagementEntities();
     }
 }

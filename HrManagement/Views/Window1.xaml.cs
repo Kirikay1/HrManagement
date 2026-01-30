@@ -22,6 +22,18 @@ namespace HrManagement.Views
         public Window1()
         {
             InitializeComponent();
+
+        }
+
+        public class Phone
+        {
+            public string Name { get; set; }
+            public int Price { get; set; }
+
+            public override string ToString()
+            {
+                return $"Смартфон {this.Name}; цена: {this.Price}";
+            }
         }
     }
 }
