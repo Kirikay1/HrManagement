@@ -4,8 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HrManagement.Views"
+      xmlns:viewModel="clr-namespace:HrManagement.ViewModel"
       mc:Ignorable="d" 
       Title="Управленние персоналом">
+
+    <Page.DataContext>
+        <viewModel:HrManagementPageViewModel />
+    </Page.DataContext>
 
     <Page.Resources>
         <SolidColorBrush x:Key="AccentGreenBrush" Color="#77B34B"/>
@@ -165,17 +170,29 @@
                     </Grid.RowDefinitions>
 
                     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <!-- Карточка -->
-                            <Border Style="{StaticResource PaleCard}" x:Name="employeeCard">
-                                <StackPanel>
-                                    <TextBlock FontSize="12" Foreground="Gray">Лицензионный отдел  —  Директор штабгаума</TextBlock>
-                                    <TextBlock FontWeight="Bold" FontSize="14" Margin="0,6,0,0">Иванов Иванов Иванович</TextBlock>
-                                    <TextBlock Margin="0,6,0,0">+7 233 333 333   ivanov.super@dorogi.ru</TextBlock>
-                                    <TextBlock Margin="0,6,0,0" Foreground="Gray">Ресепшен</TextBlock>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
+                        <!-- карточка -->
+                        <ItemsControl ItemsSource="{Binding EmployeeCards}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource PaleCard}">
+                                        <StackPanel>
+                                            <TextBlock FontSize="12" Foreground="Gray">
+                                                <Run Text="{Binding DepartmentName}" />
+                                                <Run Text=" — " />
+                                                <Run Text="{Binding PositionName}" />
+                                            </TextBlock>
+                                            <TextBlock FontWeight="Bold" FontSize="14" Margin="0,6,0,0" Text="{Binding FullName}" />
+                                            <TextBlock Margin="0,6,0,0">
+                                                <Run Text="{Binding WorkPhone}" />
+                                                <Run Text="   " />
+                                                <Run Text="{Binding Email}" />
+                                            </TextBlock>
+                                            <TextBlock Margin="0,6,0,0" Foreground="Gray" Text="{Binding EmployeeOffice}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </ScrollViewer>
 
                     <!-- Кнопка добавления -->
