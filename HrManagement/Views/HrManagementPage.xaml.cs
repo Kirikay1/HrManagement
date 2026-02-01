@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HrManagement.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace HrManagement.Views
         public HrManagementPage()
         {
             InitializeComponent();
+
+
 
             Loaded += (_, __) => UpdateLines();
             SizeChanged += (_, __) => UpdateLines();

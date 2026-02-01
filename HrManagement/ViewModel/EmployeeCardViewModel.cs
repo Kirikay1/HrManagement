@@ -1,46 +1,72 @@
-﻿using HrManagement.Model;
-using System.Data.Entity;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace HrManagement.ViewModel
+﻿namespace HrManagement.ViewModel
 {
-    public class HrManagementPageViewModel : ViewModelBase
+    public class EmployeeCardViewModel : ViewModelBase
     {
-        private ObservableCollection<EmployeeCardViewModel> employeeCards;
+        private string departmentName;
+        private string positionName;
+        private string fullName;
+        private string workPhone;
+        private string email;
+        private string employeeOffice;
 
-        public HrManagementPageViewModel()
+        public string DepartmentName
         {
-            LoadEmployees();
-        }
-
-        public ObservableCollection<EmployeeCardViewModel> EmployeeCards
-        {
-            get => employeeCards;
-            private set
+            get => departmentName;
+            set
             {
-                employeeCards = value;
+                departmentName = value;
                 OnPropertyChanged();
             }
         }
 
-        private void LoadEmployees()
+        public string PositionName
         {
-            var employees = AppData.db.Employee
-                .Include(employee => employee.Department)
-                .Include(employee => employee.Position)
-                .ToList();
+            get => positionName;
+            set
+            {
+                positionName = value;
+                OnPropertyChanged();
+            }
+        }
 
-            EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(
-                employees.Select(employee => new EmployeeCardViewModel
-                {
-                    DepartmentName = employee.Department?.NameDepartment,
-                    PositionName = employee.Position?.NamePosition,
-                    FullName = employee.FullName,
-                    WorkPhone = employee.WorkPhone,
-                    Email = employee.Email,
-                    EmployeeOffice = employee.EmployeeOffice
-                }));
+        public string FullName
+        {
+            get => fullName;
+            set
+            {
+                fullName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string WorkPhone
+        {
+            get => workPhone;
+            set
+            {
+                workPhone = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Email
+        {
+            get => email;
+            set
+            {
+                email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string EmployeeOffice
+        {
+            get => employeeOffice;
+            set
+            {
+                employeeOffice = value;
+                OnPropertyChanged();
+            }
         }
     }
 }
