@@ -22,6 +22,8 @@ namespace HrManagement.ViewModel
         private EmployeeCardViewModel selectedEmployee;
         private bool isEmployeeCardOpen;
         private bool isEditing;
+        private bool isNewEmployee;
+        private string selectedDepartmentName;
         private readonly ObservableCollection<string> validationErrors = new ObservableCollection<string>();
 
         public HrManagementPageViewModel()
@@ -34,6 +36,7 @@ namespace HrManagement.ViewModel
             StartEditEmployeeCommand = new RelayCommand(_ => StartEditEmployee(), _ => SelectedEmployee != null && !IsEditing);
             CancelEditEmployeeCommand = new RelayCommand(_ => CancelEditEmployee(), _ => SelectedEmployee != null && IsEditing);
             SaveEmployeeCommand = new RelayCommand(_ => SaveEmployee(), _ => SelectedEmployee != null && IsEditing);
+            AddEmployeeCommand = new RelayCommand(_ => AddEmployee());
         }
 
         public ObservableCollection<EmployeeCardViewModel> EmployeeCards
@@ -121,6 +124,26 @@ namespace HrManagement.ViewModel
             }
         }
 
+        public bool IsNewEmployee
+        {
+            get => isNewEmployee;
+            private set
+            {
+                isNewEmployee = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedDepartmentName
+        {
+            get => selectedDepartmentName;
+            private set
+            {
+                selectedDepartmentName = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<string> ValidationErrors => validationErrors;
 
         public ICommand FilterByDepartmentCommand { get; }
@@ -129,6 +152,7 @@ namespace HrManagement.ViewModel
         public ICommand StartEditEmployeeCommand { get; }
         public ICommand CancelEditEmployeeCommand { get; }
         public ICommand SaveEmployeeCommand { get; }
+        public ICommand AddEmployeeCommand { get; }
 
         private void LoadEmployees()
         {
@@ -168,6 +192,7 @@ namespace HrManagement.ViewModel
 
         public void FilterEmployeesByDepartment(string departmentName)
         {
+            SelectedDepartmentName = string.IsNullOrWhiteSpace(departmentName) ? null : departmentName;
             if (string.IsNullOrWhiteSpace(departmentName))
             {
                 EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards);
@@ -191,6 +216,7 @@ namespace HrManagement.ViewModel
             SelectedEmployee = employee;
             IsEmployeeCardOpen = true;
             IsEditing = false;
+            IsNewEmployee = false;
             ValidationErrors.Clear();
         }
 
@@ -199,6 +225,7 @@ namespace HrManagement.ViewModel
             ValidationErrors.Clear();
             IsEditing = false;
             IsEmployeeCardOpen = false;
+            IsNewEmployee = false;
         }
 
         private void StartEditEmployee()
@@ -222,6 +249,13 @@ namespace HrManagement.ViewModel
             SelectedEmployee.CancelEdit();
             ValidationErrors.Clear();
             IsEditing = false;
+            if (IsNewEmployee)
+            {
+                IsEmployeeCardOpen = false;
+                IsNewEmployee = false;
+                SelectedEmployee = null;
+                return;
+            }
             UpdateDepartmentEmployees(SelectedEmployee.IdEmployeeDepartment);
         }
 
@@ -237,7 +271,10 @@ namespace HrManagement.ViewModel
                 return;
             }
 
-            var employee = AppData.db.Employee.FirstOrDefault(item => item.Id == SelectedEmployee.Id);
+            var isCreating = IsNewEmployee || SelectedEmployee.Id <= 0;
+            var employee = isCreating
+                ? new Employee()
+                : AppData.db.Employee.FirstOrDefault(item => item.Id == SelectedEmployee.Id);
             if (employee == null)
             {
                 ValidationErrors.Clear();
@@ -262,7 +299,19 @@ namespace HrManagement.ViewModel
             SelectedEmployee.DepartmentName = department?.NameDepartment;
             SelectedEmployee.PositionName = position?.NamePosition;
 
+            if (isCreating)
+            {
+                AppData.db.Employee.Add(employee);
+            }
+
             AppData.db.SaveChanges();
+            if (isCreating)
+            {
+                SelectedEmployee.Id = employee.Id;
+                allEmployeeCards.Add(SelectedEmployee);
+                ApplyDepartmentFilter();
+            }
+            IsNewEmployee = false;
             ValidationErrors.Clear();
             IsEditing = false;
         }
@@ -362,6 +411,39 @@ namespace HrManagement.ViewModel
             {
                 SelectedEmployee.AssistantEmployee = null;
             }
+        }
+
+        private void AddEmployee()
+        {
+            var preselectedDepartment = Departments
+                .FirstOrDefault(item => string.Equals(item.NameDepartment, SelectedDepartmentName, System.StringComparison.OrdinalIgnoreCase));
+
+            SelectedEmployee = new EmployeeCardViewModel
+            {
+                Id = 0,
+                DepartmentName = preselectedDepartment?.NameDepartment,
+                IdEmployeeDepartment = preselectedDepartment?.Id ?? 0
+            };
+
+            IsEmployeeCardOpen = true;
+            IsEditing = true;
+            IsNewEmployee = true;
+            ValidationErrors.Clear();
+        }
+
+        private void ApplyDepartmentFilter()
+        {
+            if (string.IsNullOrWhiteSpace(SelectedDepartmentName))
+            {
+                EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards);
+                return;
+            }
+
+            var filtered = allEmployeeCards
+                .Where(employee => string.Equals(employee.DepartmentName, SelectedDepartmentName, System.StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(filtered);
         }
 
         public class EmployeeLookupViewModel
