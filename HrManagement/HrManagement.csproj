@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BooleanNegationConverter.cs" />
     <Compile Include="ViewModel\EmployeeCardViewModel.cs" />
     <Compile Include="ViewModel\HrManagementPageViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
