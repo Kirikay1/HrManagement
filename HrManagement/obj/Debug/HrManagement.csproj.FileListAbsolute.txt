@@ -68,4 +68,3 @@ C:\Users\maksi\OneDrive\Рабочий стол\HrManagement\HrManagement\obj\De
 C:\Users\maksi\OneDrive\Рабочий стол\HrManagement\HrManagement\obj\Debug\HrManage.FC721247.Up2Date
 C:\Users\maksi\OneDrive\Рабочий стол\HrManagement\HrManagement\obj\Debug\HrManagement.exe
 C:\Users\maksi\OneDrive\Рабочий стол\HrManagement\HrManagement\obj\Debug\HrManagement.pdb
-C:\Users\maksi\OneDrive\Рабочий стол\HrManagement\HrManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs

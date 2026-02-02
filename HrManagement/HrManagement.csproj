@@ -69,6 +69,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\EmployeeCardViewModel.cs" />
     <Compile Include="ViewModel\HrManagementPageViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\HrManagementPage.xaml.cs">
       <DependentUpon>HrManagementPage.xaml</DependentUpon>
