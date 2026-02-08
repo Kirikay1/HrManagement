@@ -37,6 +37,7 @@
           <ScalarProperty Name="EmployeeOffice" ColumnName="EmployeeOffice" />
           <ScalarProperty Name="Other" ColumnName="Other" />
           <ScalarProperty Name="CalendarEmployee" ColumnName="CalendarEmployee" />
+          <ScalarProperty Name="EmploymentEndDate" ColumnName="EmploymentEndDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

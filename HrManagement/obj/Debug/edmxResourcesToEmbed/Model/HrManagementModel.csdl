@@ -42,6 +42,7 @@
     <Property Name="EmployeeOffice" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Other" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="CalendarEmployee" Type="Int32" />
+    <Property Name="EmploymentEndDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Calendar" Relationship="Self.FK__Employee__Calend__534D60F1" FromRole="Employee" ToRole="Calendar" />
     <NavigationProperty Name="Department" Relationship="Self.FK__Employee__IdEmpl__4F7CD00D" FromRole="Employee" ToRole="Department" />
     <NavigationProperty Name="Employee1" Relationship="Self.FK__Employee__Assist__52593CB8" FromRole="Employee" ToRole="Employee1" />

@@ -35,6 +35,7 @@
     <Property Name="EmployeeOffice" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="Other" Type="nvarchar" MaxLength="1000" />
     <Property Name="CalendarEmployee" Type="int" />
+    <Property Name="EmploymentEndDate" Type="date" />
   </EntityType>
   <EntityType Name="HrEvent">
     <Key>

@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\maksi\\Desktop\\HrManagement\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|c:\\users\\maksi\\desktop\\hrmanagement\\hrmanagement\\viewmodel\\hrmanagementpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6B31DA00-0736-4693-8EFF-0F231E718333}|HrManagement\\HrManagement.csproj|solutionrelative:hrmanagement\\viewmodel\\hrmanagementpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -59,19 +54,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HrManagementPageViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\ViewModel\\HrManagementPageViewModel.cs",
-              "RelativeDocumentMoniker": "HrManagement\\ViewModel\\HrManagementPageViewModel.cs",
-              "ToolTip": "C:\\Users\\maksi\\Desktop\\HrManagement\\HrManagement\\ViewModel\\HrManagementPageViewModel.cs",
-              "RelativeToolTip": "HrManagement\\ViewModel\\HrManagementPageViewModel.cs",
-              "ViewState": "AgIAAAMDAAAAAAAAAAAgwCIDAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-08T12:10:50.215Z",
-              "EditorCaption": ""
             }
           ]
         }

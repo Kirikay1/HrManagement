@@ -16,6 +16,7 @@
         private string email;
         private string employeeOffice;
         private string other;
+        private System.DateTime? employmentEndDate;
         private EmployeeSnapshot backup;
 
         public int Id
@@ -158,6 +159,23 @@
             }
         }
 
+        public System.DateTime? EmploymentEndDate
+        {
+            get => employmentEndDate;
+            set
+            {
+                employmentEndDate = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsDismissed));
+                OnPropertyChanged(nameof(IsDismissedRecently));
+            }
+        }
+
+        public bool IsDismissed => EmploymentEndDate.HasValue;
+
+        public bool IsDismissedRecently => EmploymentEndDate.HasValue
+            && EmploymentEndDate.Value.Date >= System.DateTime.Today.AddDays(-30);
+
         public void BeginEdit()
         {
             backup = new EmployeeSnapshot
@@ -175,7 +193,8 @@
                 WorkPhone = WorkPhone,
                 Email = Email,
                 EmployeeOffice = EmployeeOffice,
-                Other = Other
+                Other = Other,
+                EmploymentEndDate = EmploymentEndDate
             };
         }
 
@@ -200,6 +219,7 @@
             Email = backup.Email;
             EmployeeOffice = backup.EmployeeOffice;
             Other = backup.Other;
+            EmploymentEndDate = backup.EmploymentEndDate;
         }
 
         private class EmployeeSnapshot
@@ -218,6 +238,7 @@
             public string Email { get; set; }
             public string EmployeeOffice { get; set; }
             public string Other { get; set; }
+            public System.DateTime? EmploymentEndDate { get; set; }
         }
     }
 }

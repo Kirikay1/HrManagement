@@ -34,6 +34,7 @@ namespace HrManagement.Model
         public string EmployeeOffice { get; set; }
         public string Other { get; set; }
         public Nullable<int> CalendarEmployee { get; set; }
+        public Nullable<System.DateTime> EmploymentEndDate { get; set; }
     
         public virtual Calendar Calendar { get; set; }
         public virtual Department Department { get; set; }

@@ -40,6 +40,7 @@
           <Property Name="EmployeeOffice" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Other" Type="nvarchar" MaxLength="1000" />
           <Property Name="CalendarEmployee" Type="int" />
+          <Property Name="EmploymentEndDate" Type="date" />
         </EntityType>
         <EntityType Name="HrEvent">
           <Key>
@@ -360,6 +361,7 @@
           <Property Name="EmployeeOffice" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Other" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="CalendarEmployee" Type="Int32" />
+          <Property Name="EmploymentEndDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Calendar" Relationship="Self.FK__Employee__Calend__534D60F1" FromRole="Employee" ToRole="Calendar" />
           <NavigationProperty Name="Department" Relationship="Self.FK__Employee__IdEmpl__4F7CD00D" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Employee1" Relationship="Self.FK__Employee__Assist__52593CB8" FromRole="Employee" ToRole="Employee1" />
@@ -692,6 +694,7 @@
                 <ScalarProperty Name="EmployeeOffice" ColumnName="EmployeeOffice" />
                 <ScalarProperty Name="Other" ColumnName="Other" />
                 <ScalarProperty Name="CalendarEmployee" ColumnName="CalendarEmployee" />
+                <ScalarProperty Name="EmploymentEndDate" ColumnName="EmploymentEndDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

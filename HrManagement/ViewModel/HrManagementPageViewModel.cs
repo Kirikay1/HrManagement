@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows;
 
 namespace HrManagement.ViewModel
 {
@@ -52,6 +53,7 @@ namespace HrManagement.ViewModel
             StartEditEmployeeCommand = new RelayCommand(_ => StartEditEmployee(), _ => SelectedEmployee != null && !IsEditing);
             CancelEditEmployeeCommand = new RelayCommand(_ => CancelEditEmployee(), _ => SelectedEmployee != null && IsEditing);
             SaveEmployeeCommand = new RelayCommand(_ => SaveEmployee(), _ => SelectedEmployee != null && IsEditing);
+            DismissEmployeeCommand = new RelayCommand(_ => DismissEmployee(), _ => SelectedEmployee != null && SelectedEmployee.Id > 0);
             AddEmployeeCommand = new RelayCommand(_ => AddEmployee());
             AddEmployeeEventCommand = new RelayCommand(_ => AddEmployeeEvent(), _ => SelectedEmployee != null);
             DeleteEmployeeEventCommand = new RelayCommand(parameter => DeleteEmployeeEvent(parameter as EmployeeEventViewModel), _ => SelectedEmployee != null);
@@ -268,6 +270,7 @@ namespace HrManagement.ViewModel
         public ICommand StartEditEmployeeCommand { get; }
         public ICommand CancelEditEmployeeCommand { get; }
         public ICommand SaveEmployeeCommand { get; }
+        public ICommand DismissEmployeeCommand { get; }
         public ICommand AddEmployeeCommand { get; }
         public ICommand AddEmployeeEventCommand { get; }
         public ICommand DeleteEmployeeEventCommand { get; }
@@ -295,10 +298,11 @@ namespace HrManagement.ViewModel
                 WorkPhone = employee.WorkPhone,
                 Email = employee.Email,
                 EmployeeOffice = employee.EmployeeOffice,
-                Other = employee.Other
+                Other = employee.Other,
+                EmploymentEndDate = employee.EmploymentEndDate
             }));
 
-            EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards);
+            EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards.Where(IsVisibleInList));
         }
 
         private void LoadReferenceData()
@@ -313,11 +317,12 @@ namespace HrManagement.ViewModel
             SelectedDepartmentName = string.IsNullOrWhiteSpace(departmentName) ? null : departmentName;
             if (string.IsNullOrWhiteSpace(departmentName))
             {
-                EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards);
+                EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards.Where(IsVisibleInList));
                 return;
             }
 
             var filtered = allEmployeeCards
+                .Where(IsVisibleInList)
                 .Where(employee => string.Equals(employee.DepartmentName, departmentName, System.StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
@@ -413,6 +418,7 @@ namespace HrManagement.ViewModel
             employee.Email = SelectedEmployee.Email;
             employee.EmployeeOffice = SelectedEmployee.EmployeeOffice;
             employee.Other = SelectedEmployee.Other;
+            employee.EmploymentEndDate = SelectedEmployee.EmploymentEndDate;
 
             var department = Departments.FirstOrDefault(item => item.Id == SelectedEmployee.IdEmployeeDepartment);
             var position = Positions.FirstOrDefault(item => item.Id == SelectedEmployee.IdPosition);
@@ -534,6 +540,79 @@ namespace HrManagement.ViewModel
             }
         }
 
+        private static bool IsVisibleInList(EmployeeCardViewModel employee)
+        {
+            return !employee.EmploymentEndDate.HasValue
+                || employee.EmploymentEndDate.Value.Date >= DateTime.Today.AddDays(-30);
+        }
+
+        private void DismissEmployee()
+        {
+            ValidationErrors.Clear();
+
+            if (SelectedEmployee == null || SelectedEmployee.Id <= 0)
+            {
+                return;
+            }
+
+            var dbEmployee = AppData.db.Employee
+                .Include(item => item.Calendar)
+                .Include(item => item.Calendar.LearningCalendar)
+                .Include(item => item.Calendar.VacationCalendar)
+                .Include(item => item.Calendar.WorkingCalendar)
+                .FirstOrDefault(item => item.Id == SelectedEmployee.Id);
+
+            if (dbEmployee == null)
+            {
+                ValidationErrors.Add("Сотрудник не найден в базе данных.");
+                return;
+            }
+
+            var today = DateTime.Today;
+            var hasFutureLearning = dbEmployee.Calendar?.LearningCalendar != null
+                && dbEmployee.Calendar.LearningCalendar.EndLearningn.Date >= today;
+
+            if (hasFutureLearning)
+            {
+                ValidationErrors.Add("Нельзя уволить сотрудника: у него запланировано обучение.");
+                return;
+            }
+
+            var confirmationResult = MessageBox.Show(
+                "Подтвердите увольнение сотрудника. Будут удалены будущие отгулы и отпуска.",
+                "Подтверждение увольнения",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (confirmationResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            var calendar = dbEmployee.Calendar;
+            if (calendar != null)
+            {
+                if (calendar.VacationCalendar != null && calendar.VacationCalendar.EndVacation.Date >= today)
+                {
+                    AppData.db.VacationCalendar.Remove(calendar.VacationCalendar);
+                    calendar.IdVacationCalendar = null;
+                }
+
+                if (calendar.WorkingCalendar != null && calendar.WorkingCalendar.EndExceptionDate.Date >= today)
+                {
+                    AppData.db.WorkingCalendar.Remove(calendar.WorkingCalendar);
+                    calendar.IdWorkingCalendar = null;
+                }
+            }
+
+            dbEmployee.EmploymentEndDate = today;
+            SelectedEmployee.EmploymentEndDate = today;
+
+            AppData.db.SaveChanges();
+            LoadEmployeeEvents(SelectedEmployee);
+            ApplyDepartmentFilter();
+        }
+
         private void AddEmployee()
         {
             var preselectedDepartment = Departments
@@ -557,11 +636,12 @@ namespace HrManagement.ViewModel
         {
             if (string.IsNullOrWhiteSpace(SelectedDepartmentName))
             {
-                EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards);
+                EmployeeCards = new ObservableCollection<EmployeeCardViewModel>(allEmployeeCards.Where(IsVisibleInList));
                 return;
             }
 
             var filtered = allEmployeeCards
+                .Where(IsVisibleInList)
                 .Where(employee => string.Equals(employee.DepartmentName, SelectedDepartmentName, System.StringComparison.OrdinalIgnoreCase))
                 .ToList();
 

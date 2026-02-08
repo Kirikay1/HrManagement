@@ -98,7 +98,8 @@ CREATE TABLE [Employee]
 	Email NVARCHAR(100) NOT NULL,
 	EmployeeOffice NVARCHAR(10) NOT NULL,
 	Other NVARCHAR(1000) NULL,
-	CalendarEmployee INT NULL REFERENCES [Calendar] (Id)
+	CalendarEmployee INT NULL REFERENCES [Calendar] (Id),
+	EmploymentEndDate DATE NULL
 )
 GO
 

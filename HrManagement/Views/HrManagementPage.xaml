@@ -22,6 +22,11 @@
             <Setter Property="CornerRadius" Value="6"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="Margin" Value="0,0,0,12"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsDismissedRecently}" Value="True">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="CardButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -284,6 +289,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Карточка сотрудника"
                                    FontWeight="Bold"
@@ -300,6 +306,16 @@
                                 ToolTip="Редактировать"
                                 Command="{Binding DataContext.StartEditEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
                         <Button Grid.Column="2"
+                                Padding="10,0"
+                                Height="32"
+                                Margin="0,0,8,0"
+                                Background="#E57373"
+                                Foreground="White"
+                                BorderBrush="#C55A5A"
+                                Content="Уволить"
+                                ToolTip="Уволить сотрудника"
+                                Command="{Binding DataContext.DismissEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                        <Button Grid.Column="3"
                                 Width="32"
                                 Height="32"
                                 Background="#F2F2F2"
