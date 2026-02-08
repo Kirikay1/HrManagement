@@ -610,6 +610,7 @@ namespace HrManagement.ViewModel
                         TypeName = "Отпуск",
                         StartDate = calendar.VacationCalendar.BeginVacation,
                         EndDate = calendar.VacationCalendar.EndVacation,
+                        Reason = calendar.VacationCalendar.reasonVacation,
                         CalendarId = calendar.Id,
                         VacationCalendarId = calendar.VacationCalendar.Id
                     });
@@ -622,6 +623,7 @@ namespace HrManagement.ViewModel
                         TypeName = "Отгул",
                         StartDate = calendar.WorkingCalendar.ExceptionDate,
                         EndDate = calendar.WorkingCalendar.EndExceptionDate,
+                        Reason = calendar.WorkingCalendar.reasonWorking,
                         CalendarId = calendar.Id,
                         WorkingCalendarId = calendar.WorkingCalendar.Id
                     });
@@ -634,6 +636,7 @@ namespace HrManagement.ViewModel
                         TypeName = "Обучение",
                         StartDate = calendar.LearningCalendar.BeginLearning,
                         EndDate = calendar.LearningCalendar.EndLearningn,
+                        Reason = calendar.LearningCalendar.reasonLearning,
                         CalendarId = calendar.Id,
                         LearningCalendarId = calendar.LearningCalendar.Id
                     });
@@ -734,6 +737,7 @@ namespace HrManagement.ViewModel
 
             var startDate = NewEventStartDate.Value.Date;
             var endDate = NewEventEndDate.Value.Date;
+            var reason = string.IsNullOrWhiteSpace(NewEventReason) ? null : NewEventReason.Trim();
 
             ValidateEventOverlap(SelectedEventType, startDate, endDate);
             if (SelectedEventType == "Отгул")
@@ -768,7 +772,8 @@ namespace HrManagement.ViewModel
                 var vacation = new VacationCalendar
                 {
                     BeginVacation = startDate,
-                    EndVacation = endDate
+                    EndVacation = endDate,
+                    reasonVacation = reason
                 };
 
                 AppData.db.VacationCalendar.Add(vacation);
@@ -780,7 +785,8 @@ namespace HrManagement.ViewModel
                 var learning = new LearningCalendar
                 {
                     BeginLearning = startDate,
-                    EndLearningn = endDate
+                    EndLearningn = endDate,
+                    reasonLearning = reason
                 };
 
                 AppData.db.LearningCalendar.Add(learning);
@@ -793,7 +799,8 @@ namespace HrManagement.ViewModel
                 {
                     ExceptionDate = startDate,
                     EndExceptionDate = endDate,
-                    IsWorkingDay = false
+                    IsWorkingDay = false,
+                    reasonWorking = reason
                 };
 
                 AppData.db.WorkingCalendar.Add(timeOff);
