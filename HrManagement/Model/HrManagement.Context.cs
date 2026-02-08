@@ -32,7 +32,6 @@ namespace HrManagement.Model
         public virtual DbSet<LearningCalendar> LearningCalendar { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Position> Position { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<typeEvent> typeEvent { get; set; }
         public virtual DbSet<VacationCalendar> VacationCalendar { get; set; }
         public virtual DbSet<WorkingCalendar> WorkingCalendar { get; set; }

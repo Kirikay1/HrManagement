@@ -24,6 +24,7 @@ namespace HrManagement.Model
         public int Id { get; set; }
         public string NameDepartment { get; set; }
         public Nullable<int> ParentId { get; set; }
+        public string descriptionDepartment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Department> Department1 { get; set; }

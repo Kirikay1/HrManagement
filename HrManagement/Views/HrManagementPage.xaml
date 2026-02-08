@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HrManagement.Views"
       xmlns:viewModel="clr-namespace:HrManagement.ViewModel"
       xmlns:converters="clr-namespace:HrManagement.Converters"
-      mc:Ignorable="d" >
+      mc:Ignorable="d">
 
 
     <Page.Resources>
@@ -14,6 +14,7 @@
         <SolidColorBrush x:Key="HeaderGreenBrush" Color="#EAF8DF"/>
         <SolidColorBrush x:Key="CardGreenBrush" Color="#E6F5C9"/>
         <SolidColorBrush x:Key="PanelGrayBrush" Color="#E5E5E5"/>
+        <SolidColorBrush x:Key="SoftBorderBrush" Color="#D0D0D0"/>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
         <Style x:Key="PaleCard" TargetType="Border">
@@ -28,6 +29,25 @@
             <Setter Property="Padding" Value="0"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        </Style>
+        <Style x:Key="FilterToggleStyle" TargetType="ToggleButton">
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="MinWidth" Value="84"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Background" Value="#F3F3F3"/>
+            <Setter Property="BorderBrush" Value="#D0D0D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AccentGreenBrush}"/>
+                    <Setter Property="BorderBrush" Value="#5C8D3B"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
 
@@ -245,7 +265,7 @@
             <Border Background="White"
                     CornerRadius="8"
                     Padding="20"
-                    Width="760"
+                    Width="850"
                     MaxHeight="720"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
@@ -304,97 +324,219 @@
 
                             <Grid Margin="0,8,0,0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="220"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="360"/>
                                 </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
 
-                                <TextBlock Text="ФИО *" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <TextBox Grid.Row="0" Grid.Column="1"
-                                         Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
-                                         IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                <Grid Grid.Column="0" Margin="0,0,16,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <TextBlock Text="Мобильный телефон" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <TextBox Grid.Row="1" Grid.Column="1"
-                                         Text="{Binding PersonalPhone, UpdateSourceTrigger=PropertyChanged}"
-                                         IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                    <TextBlock Text="ФИО *" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1"
+                                             Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
 
-                                <TextBlock Text="День рождения" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <DatePicker Grid.Row="2" Grid.Column="1"
-                                            SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}"
-                                            IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                    <TextBlock Text="Мобильный телефон" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1"
+                                             Text="{Binding PersonalPhone, UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
 
-                                <TextBlock Text="Структурное подразделение *" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <ComboBox Grid.Row="3" Grid.Column="1"
-                                          ItemsSource="{Binding DataContext.Departments, RelativeSource={RelativeSource AncestorType=Page}}"
-                                          DisplayMemberPath="NameDepartment"
-                                          SelectedValuePath="Id"
-                                          SelectedValue="{Binding IdEmployeeDepartment, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                    <TextBlock Text="День рождения" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <DatePicker Grid.Row="2" Grid.Column="1"
+                                                SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}"
+                                                IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
 
-                                <TextBlock Text="Должность *" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <ComboBox Grid.Row="4" Grid.Column="1"
-                                          ItemsSource="{Binding DataContext.Positions, RelativeSource={RelativeSource AncestorType=Page}}"
-                                          DisplayMemberPath="NamePosition"
-                                          SelectedValuePath="Id"
-                                          SelectedValue="{Binding IdPosition, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                    <TextBlock Text="Структурное подразделение *" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <ComboBox Grid.Row="3" Grid.Column="1"
+                                              ItemsSource="{Binding DataContext.Departments, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              DisplayMemberPath="NameDepartment"
+                                              SelectedValuePath="Id"
+                                              SelectedValue="{Binding IdEmployeeDepartment, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
 
-                                <TextBlock Text="Непосредственный руководитель" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <ComboBox Grid.Row="5" Grid.Column="1"
-                                          ItemsSource="{Binding DataContext.DepartmentEmployees, RelativeSource={RelativeSource AncestorType=Page}}"
-                                          DisplayMemberPath="FullName"
-                                          SelectedValuePath="Id"
-                                          SelectedValue="{Binding DirectSupervisor, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                    <TextBlock Text="Должность *" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <ComboBox Grid.Row="4" Grid.Column="1"
+                                              ItemsSource="{Binding DataContext.Positions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              DisplayMemberPath="NamePosition"
+                                              SelectedValuePath="Id"
+                                              SelectedValue="{Binding IdPosition, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
 
-                                <TextBlock Text="Помощник" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <ComboBox Grid.Row="6" Grid.Column="1"
-                                          ItemsSource="{Binding DataContext.DepartmentEmployees, RelativeSource={RelativeSource AncestorType=Page}}"
-                                          DisplayMemberPath="FullName"
-                                          SelectedValuePath="Id"
-                                          SelectedValue="{Binding AssistantEmployee, UpdateSourceTrigger=PropertyChanged}"
-                                          IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                    <TextBlock Text="Непосредственный руководитель" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <ComboBox Grid.Row="5" Grid.Column="1"
+                                              ItemsSource="{Binding DataContext.DepartmentEmployees, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              DisplayMemberPath="FullName"
+                                              SelectedValuePath="Id"
+                                              SelectedValue="{Binding DirectSupervisor, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
 
-                                <TextBlock Text="Рабочий телефон *" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <TextBox Grid.Row="7" Grid.Column="1"
-                                         Text="{Binding WorkPhone, UpdateSourceTrigger=PropertyChanged}"
-                                         IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                    <TextBlock Text="Помощник" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <ComboBox Grid.Row="6" Grid.Column="1"
+                                              ItemsSource="{Binding DataContext.DepartmentEmployees, RelativeSource={RelativeSource AncestorType=Page}}"
+                                              DisplayMemberPath="FullName"
+                                              SelectedValuePath="Id"
+                                              SelectedValue="{Binding AssistantEmployee, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
 
-                                <TextBlock Text="Электронная почта *" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <TextBox Grid.Row="8" Grid.Column="1"
-                                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                                         IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                    <TextBlock Text="Рабочий телефон *" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <TextBox Grid.Row="7" Grid.Column="1"
+                                             Text="{Binding WorkPhone, UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
 
-                                <TextBlock Text="Кабинет *" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
-                                <TextBox Grid.Row="9" Grid.Column="1"
-                                         Text="{Binding EmployeeOffice, UpdateSourceTrigger=PropertyChanged}"
-                                         MaxLength="10"
-                                         IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                    <TextBlock Text="Электронная почта *" Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <TextBox Grid.Row="8" Grid.Column="1"
+                                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
 
-                                <TextBlock Text="Прочая информация" Grid.Row="10" Grid.Column="0" VerticalAlignment="Top" Margin="0,0,12,8"/>
-                                <TextBox Grid.Row="10" Grid.Column="1"
-                                         Text="{Binding Other, UpdateSourceTrigger=PropertyChanged}"
-                                         Height="80"
-                                         TextWrapping="Wrap"
-                                         AcceptsReturn="True"
-                                         IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                    <TextBlock Text="Кабинет *" Grid.Row="9" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,12,8"/>
+                                    <TextBox Grid.Row="9" Grid.Column="1"
+                                             Text="{Binding EmployeeOffice, UpdateSourceTrigger=PropertyChanged}"
+                                             MaxLength="10"
+                                             IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+
+                                    <TextBlock Text="Прочая информация" Grid.Row="10" Grid.Column="0" VerticalAlignment="Top" Margin="0,0,12,8"/>
+                                    <TextBox Grid.Row="10" Grid.Column="1"
+                                             Text="{Binding Other, UpdateSourceTrigger=PropertyChanged}"
+                                             Height="80"
+                                             TextWrapping="Wrap"
+                                             AcceptsReturn="True"
+                                             IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                                </Grid>
+
+                                <Border Grid.Column="1"
+                                        Background="#FAFAFA"
+                                        BorderBrush="{StaticResource SoftBorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Padding="12">
+                                    <StackPanel>
+                                        <TextBlock Text="События сотрудника"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"/>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,8,0,12">
+                                            <ToggleButton Style="{StaticResource FilterToggleStyle}"
+                                                          Content="Прошедшие"
+                                                          IsChecked="{Binding DataContext.ShowPastEvents, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                            <ToggleButton Style="{StaticResource FilterToggleStyle}"
+                                                          Content="Текущие"
+                                                          IsChecked="{Binding DataContext.ShowCurrentEvents, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                            <ToggleButton Style="{StaticResource FilterToggleStyle}"
+                                                          Content="Будущие"
+                                                          IsChecked="{Binding DataContext.ShowFutureEvents, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                        </StackPanel>
+
+                                        <ItemsControl ItemsSource="{Binding DataContext.EmployeeEventsView, RelativeSource={RelativeSource AncestorType=Page}}">
+                                            <ItemsControl.GroupStyle>
+                                                <GroupStyle>
+                                                    <GroupStyle.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Name}"
+                                                                       FontWeight="SemiBold"
+                                                                       Margin="0,6,0,4"/>
+                                                        </DataTemplate>
+                                                    </GroupStyle.HeaderTemplate>
+                                                </GroupStyle>
+                                            </ItemsControl.GroupStyle>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="White"
+                                                            BorderBrush="{StaticResource SoftBorderBrush}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="4"
+                                                            Padding="8"
+                                                            Margin="0,0,0,8">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel>
+                                                                <TextBlock FontWeight="SemiBold"
+                                                                           Text="{Binding DateRangeDisplay}"/>
+                                                                <TextBlock Text="{Binding Reason, StringFormat=Обоснование: {0}}"
+                                                                           Foreground="Gray"
+                                                                           TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                            <Button Grid.Column="1"
+                                                                    Content="Удалить"
+                                                                    Margin="8,0,0,0"
+                                                                    Padding="8,2"
+                                                                    IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    Command="{Binding DataContext.DeleteEmployeeEventCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                                    CommandParameter="{Binding}"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+                                        <Separator Margin="0,8,0,8"/>
+
+                                        <TextBlock Text="Добавить событие"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0,0,0,8"/>
+
+                                        <StackPanel IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}">
+                                            <TextBlock Text="Тип события *" Margin="0,0,0,4"/>
+                                            <ComboBox ItemsSource="{Binding DataContext.EventTypeOptions, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                      SelectedItem="{Binding DataContext.SelectedEventType, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                      Margin="0,0,0,8"/>
+
+                                            <TextBlock Text="Дата начала *" Margin="0,0,0,4"/>
+                                            <DatePicker SelectedDate="{Binding DataContext.NewEventStartDate, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        Margin="0,0,0,8"/>
+
+                                            <TextBlock Text="Дата окончания *" Margin="0,0,0,4"/>
+                                            <DatePicker SelectedDate="{Binding DataContext.NewEventEndDate, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                        Margin="0,0,0,8"/>
+
+                                            <TextBlock Text="Обоснование" Margin="0,0,0,4"/>
+                                            <TextBox Text="{Binding DataContext.NewEventReason, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                     Height="60"
+                                                     TextWrapping="Wrap"
+                                                     AcceptsReturn="True"/>
+
+                                            <ItemsControl ItemsSource="{Binding DataContext.EventValidationErrors, RelativeSource={RelativeSource AncestorType=Page}}"
+                                                          Margin="0,8,0,0">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Foreground="#C62828"
+                                                                   Text="{Binding}"
+                                                                   Margin="0,0,0,4"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <Button Content="Добавить"
+                                                    Width="140"
+                                                    Margin="0,8,0,0"
+                                                    Background="{StaticResource AccentGreenBrush}"
+                                                    Foreground="White"
+                                                    BorderBrush="#5C8D3B"
+                                                    Command="{Binding DataContext.AddEmployeeEventCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
                             </Grid>
                         </StackPanel>
                     </ScrollViewer>
-
                     <StackPanel Grid.Row="2"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right"

@@ -22,7 +22,8 @@ namespace HrManagement.Model
     
         public long Id { get; set; }
         public System.DateTime ExceptionDate { get; set; }
-        public bool IsWorkingDay { get; set; }
+        public System.DateTime EndExceptionDate { get; set; }
+        public Nullable<bool> IsWorkingDay { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Calendar> Calendar { get; set; }
