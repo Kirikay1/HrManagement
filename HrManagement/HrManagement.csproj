@@ -69,49 +69,49 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BooleanNegationConverter.cs" />
     <Compile Include="Model\Calendar.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Department.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Employee.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\HrEvent.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\HrManagement.Context.cs">
+    <Compile Include="Model\HrManagementModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HrManagement.Context.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\HrManagement.cs">
+    <Compile Include="Model\HrManagementModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\HrManagement.Designer.cs">
+    <Compile Include="Model\HrManagementModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HrManagement.edmx</DependentUpon>
+      <DependentUpon>HrManagementModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\LearningCalendar.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Material.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Position.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\typeEvent.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\VacationCalendar.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\WorkingCalendar.cs">
-      <DependentUpon>HrManagement.tt</DependentUpon>
+      <DependentUpon>HrManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\EmployeeCardViewModel.cs" />
     <Compile Include="ViewModel\HrManagementPageViewModel.cs" />
@@ -156,12 +156,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\HrManagement.edmx">
+    <EntityDeploy Include="Model\HrManagementModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HrManagement.Designer.cs</LastGenOutput>
+      <LastGenOutput>HrManagementModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\HrManagement.edmx.diagram">
-      <DependentUpon>HrManagement.edmx</DependentUpon>
+    <None Include="Model\HrManagementModel.edmx.diagram">
+      <DependentUpon>HrManagementModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -173,19 +173,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\HrManagement.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HrManagement.Context.cs</LastGenOutput>
-      <DependentUpon>HrManagement.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model\HrManagement.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HrManagement.edmx</DependentUpon>
-      <LastGenOutput>HrManagement.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Model\HrManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HrManagementModel.edmx</DependentUpon>
+      <LastGenOutput>HrManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\HrManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HrManagementModel.edmx</DependentUpon>
+      <LastGenOutput>HrManagementModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

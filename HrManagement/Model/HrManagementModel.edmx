@@ -61,6 +61,7 @@
           <Property Name="IdMaterial" Type="int" />
           <Property Name="BeginLearning" Type="date" Nullable="false" />
           <Property Name="EndLearningn" Type="date" Nullable="false" />
+          <Property Name="reasonLearning" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -96,6 +97,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BeginVacation" Type="date" Nullable="false" />
           <Property Name="EndVacation" Type="date" Nullable="false" />
+          <Property Name="reasonVacation" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="WorkingCalendar">
           <Key>
@@ -105,6 +107,7 @@
           <Property Name="ExceptionDate" Type="date" Nullable="false" />
           <Property Name="EndExceptionDate" Type="date" Nullable="false" />
           <Property Name="IsWorkingDay" Type="bit" />
+          <Property Name="reasonWorking" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <Association Name="FK__Calendar__IdLear__46E78A0C">
           <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="0..1" />
@@ -387,6 +390,7 @@
           <Property Name="IdMaterial" Type="Int32" />
           <Property Name="BeginLearning" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndLearningn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="reasonLearning" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Calendar" Relationship="Self.FK__Calendar__IdLear__46E78A0C" FromRole="LearningCalendar" ToRole="Calendar" />
           <NavigationProperty Name="HrEvent" Relationship="Self.FK__LearningC__IdEve__3E52440B" FromRole="LearningCalendar" ToRole="HrEvent" />
           <NavigationProperty Name="Material" Relationship="Self.FK__LearningC__IdMat__3F466844" FromRole="LearningCalendar" ToRole="Material" />
@@ -428,6 +432,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BeginVacation" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndVacation" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="reasonVacation" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Calendar" Relationship="Self.FK__Calendar__IdVaca__47DBAE45" FromRole="VacationCalendar" ToRole="Calendar" />
         </EntityType>
         <EntityType Name="WorkingCalendar">
@@ -438,6 +443,7 @@
           <Property Name="ExceptionDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndExceptionDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsWorkingDay" Type="Boolean" />
+          <Property Name="reasonWorking" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Calendar" Relationship="Self.FK__Calendar__IdWork__45F365D3" FromRole="WorkingCalendar" ToRole="Calendar" />
         </EntityType>
         <Association Name="FK__Calendar__IdLear__46E78A0C">
@@ -709,6 +715,7 @@
                 <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
                 <ScalarProperty Name="BeginLearning" ColumnName="BeginLearning" />
                 <ScalarProperty Name="EndLearningn" ColumnName="EndLearningn" />
+                <ScalarProperty Name="reasonLearning" ColumnName="reasonLearning" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -748,6 +755,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BeginVacation" ColumnName="BeginVacation" />
                 <ScalarProperty Name="EndVacation" ColumnName="EndVacation" />
+                <ScalarProperty Name="reasonVacation" ColumnName="reasonVacation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -758,6 +766,7 @@
                 <ScalarProperty Name="ExceptionDate" ColumnName="ExceptionDate" />
                 <ScalarProperty Name="EndExceptionDate" ColumnName="EndExceptionDate" />
                 <ScalarProperty Name="IsWorkingDay" ColumnName="IsWorkingDay" />
+                <ScalarProperty Name="reasonWorking" ColumnName="reasonWorking" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

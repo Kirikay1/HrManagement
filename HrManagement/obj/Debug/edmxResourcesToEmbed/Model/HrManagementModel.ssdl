@@ -16,6 +16,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NameDepartment" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="ParentId" Type="int" />
+    <Property Name="descriptionDepartment" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
@@ -31,7 +32,7 @@
     <Property Name="AssistantEmployee" Type="int" />
     <Property Name="WorkPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="EmployeeOffice" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeOffice" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="Other" Type="nvarchar" MaxLength="1000" />
     <Property Name="CalendarEmployee" Type="int" />
   </EntityType>
@@ -51,8 +52,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IdEvent" Type="int" Nullable="false" />
-    <Property Name="IdMaterial" Type="int" Nullable="false" />
+    <Property Name="IdEvent" Type="int" />
+    <Property Name="IdMaterial" Type="int" />
+    <Property Name="BeginLearning" Type="date" Nullable="false" />
+    <Property Name="EndLearningn" Type="date" Nullable="false" />
+    <Property Name="reasonLearning" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="Material">
     <Key>
@@ -74,16 +78,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NamePosition" Type="nvarchar" MaxLength="200" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="typeEvent">
     <Key>
       <PropertyRef Name="Id" />
@@ -98,6 +92,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="BeginVacation" Type="date" Nullable="false" />
     <Property Name="EndVacation" Type="date" Nullable="false" />
+    <Property Name="reasonVacation" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="WorkingCalendar">
     <Key>
@@ -105,7 +100,9 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ExceptionDate" Type="date" Nullable="false" />
-    <Property Name="IsWorkingDay" Type="bit" Nullable="false" />
+    <Property Name="EndExceptionDate" Type="date" Nullable="false" />
+    <Property Name="IsWorkingDay" Type="bit" />
+    <Property Name="reasonWorking" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <Association Name="FK__Calendar__IdLear__46E78A0C">
     <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="0..1" />
@@ -228,7 +225,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__LearningC__IdEve__3E52440B">
-    <End Role="HrEvent" Type="Self.HrEvent" Multiplicity="1" />
+    <End Role="HrEvent" Type="Self.HrEvent" Multiplicity="0..1" />
     <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HrEvent">
@@ -240,7 +237,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__LearningC__IdMat__3F466844">
-    <End Role="Material" Type="Self.Material" Multiplicity="1" />
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
     <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Material">
@@ -259,7 +256,6 @@
     <EntitySet Name="LearningCalendar" EntityType="Self.LearningCalendar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="typeEvent" EntityType="Self.typeEvent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VacationCalendar" EntityType="Self.VacationCalendar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkingCalendar" EntityType="Self.WorkingCalendar" Schema="dbo" store:Type="Tables" />

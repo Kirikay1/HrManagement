@@ -25,6 +25,7 @@ namespace HrManagement.Model
         public Nullable<int> IdMaterial { get; set; }
         public System.DateTime BeginLearning { get; set; }
         public System.DateTime EndLearningn { get; set; }
+        public string reasonLearning { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Calendar> Calendar { get; set; }

@@ -20,6 +20,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NameDepartment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ParentId" Type="Int32" />
+    <Property Name="descriptionDepartment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Department1" Relationship="Self.FK__Departmen__Paren__4CA06362" FromRole="Department" ToRole="Department1" />
     <NavigationProperty Name="Department2" Relationship="Self.FK__Departmen__Paren__4CA06362" FromRole="Department1" ToRole="Department" />
     <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__IdEmpl__4F7CD00D" FromRole="Department" ToRole="Employee" />
@@ -38,7 +39,7 @@
     <Property Name="AssistantEmployee" Type="Int32" />
     <Property Name="WorkPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="EmployeeOffice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmployeeOffice" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Other" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="CalendarEmployee" Type="Int32" />
     <NavigationProperty Name="Calendar" Relationship="Self.FK__Employee__Calend__534D60F1" FromRole="Employee" ToRole="Calendar" />
@@ -67,8 +68,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IdEvent" Type="Int32" Nullable="false" />
-    <Property Name="IdMaterial" Type="Int32" Nullable="false" />
+    <Property Name="IdEvent" Type="Int32" />
+    <Property Name="IdMaterial" Type="Int32" />
+    <Property Name="BeginLearning" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndLearningn" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="reasonLearning" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Calendar" Relationship="Self.FK__Calendar__IdLear__46E78A0C" FromRole="LearningCalendar" ToRole="Calendar" />
     <NavigationProperty Name="HrEvent" Relationship="Self.FK__LearningC__IdEve__3E52440B" FromRole="LearningCalendar" ToRole="HrEvent" />
     <NavigationProperty Name="Material" Relationship="Self.FK__LearningC__IdMat__3F466844" FromRole="LearningCalendar" ToRole="Material" />
@@ -95,16 +99,6 @@
     <Property Name="NamePosition" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__IdPosi__5070F446" FromRole="Position" ToRole="Employee" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="typeEvent">
     <Key>
       <PropertyRef Name="Id" />
@@ -120,6 +114,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="BeginVacation" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="EndVacation" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="reasonVacation" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Calendar" Relationship="Self.FK__Calendar__IdVaca__47DBAE45" FromRole="VacationCalendar" ToRole="Calendar" />
   </EntityType>
   <EntityType Name="WorkingCalendar">
@@ -128,7 +123,9 @@
     </Key>
     <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ExceptionDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="IsWorkingDay" Type="Boolean" Nullable="false" />
+    <Property Name="EndExceptionDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsWorkingDay" Type="Boolean" />
+    <Property Name="reasonWorking" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Calendar" Relationship="Self.FK__Calendar__IdWork__45F365D3" FromRole="WorkingCalendar" ToRole="Calendar" />
   </EntityType>
   <Association Name="FK__Calendar__IdLear__46E78A0C">
@@ -252,7 +249,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__LearningC__IdEve__3E52440B">
-    <End Role="HrEvent" Type="Self.HrEvent" Multiplicity="1" />
+    <End Role="HrEvent" Type="Self.HrEvent" Multiplicity="0..1" />
     <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HrEvent">
@@ -264,7 +261,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__LearningC__IdMat__3F466844">
-    <End Role="Material" Type="Self.Material" Multiplicity="1" />
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
     <End Role="LearningCalendar" Type="Self.LearningCalendar" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Material">
@@ -283,7 +280,6 @@
     <EntitySet Name="LearningCalendar" EntityType="Self.LearningCalendar" />
     <EntitySet Name="Material" EntityType="Self.Material" />
     <EntitySet Name="Position" EntityType="Self.Position" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="typeEvent" EntityType="Self.typeEvent" />
     <EntitySet Name="VacationCalendar" EntityType="Self.VacationCalendar" />
     <EntitySet Name="WorkingCalendar" EntityType="Self.WorkingCalendar" />

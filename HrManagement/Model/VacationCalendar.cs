@@ -23,6 +23,7 @@ namespace HrManagement.Model
         public int Id { get; set; }
         public System.DateTime BeginVacation { get; set; }
         public System.DateTime EndVacation { get; set; }
+        public string reasonVacation { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Calendar> Calendar { get; set; }
