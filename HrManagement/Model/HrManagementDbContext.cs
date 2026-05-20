@@ -43,5 +43,35 @@ public sealed class HrManagementDbContext : DbContext
         modelBuilder.Entity<WorkingCalendar>().ToTable("WorkingCalendar");
         modelBuilder.Entity<Material>().ToTable("Material");
         modelBuilder.Entity<typeEvent>().ToTable("typeEvent");
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.Department)
+            .WithMany(d => d.Employee)
+            .HasForeignKey(e => e.IdEmployeeDepartment)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.Position)
+            .WithMany(p => p.Employee)
+            .HasForeignKey(e => e.IdPosition)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.Calendar)
+            .WithMany(c => c.Employee)
+            .HasForeignKey(e => e.CalendarEmployee)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.Employee2)
+            .WithMany(e => e.Employee1)
+            .HasForeignKey(e => e.DirectSupervisor)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Employee>()
+            .HasOne(e => e.Employee3)
+            .WithMany(e => e.Employee11)
+            .HasForeignKey(e => e.AssistantEmployee)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
