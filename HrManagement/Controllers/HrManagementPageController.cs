@@ -109,6 +109,10 @@ namespace HrManagement.Controllers
             get => selectedEmployee;
             private set
             {
+                if (selectedEmployee != null)
+                {
+                }
+
                 selectedEmployee = value;
 
                 if (selectedEmployee != null)
@@ -230,6 +234,7 @@ namespace HrManagement.Controllers
                 RefreshEmployeeEventsView();
             }
         }
+
 
         private void LoadEmployees()
         {
@@ -457,4 +462,172 @@ namespace HrManagement.Controllers
             return ValidationErrors.Count == 0;
         }
 
+
+        public void AddEmployee()
+        {
+            var employee = new EmployeeCardModel
+            {
+                Id = currentEmployeeKey--,
+                BirthDate = DateTime.Today,
+                EmploymentEndDate = null
+            };
+
+            SelectedEmployee = employee;
+            IsEmployeeCardOpen = true;
+            IsEditing = true;
+            IsNewEmployee = true;
+            ValidationErrors.Clear();
+            EventValidationErrors.Clear();
+        }
+
+        public void DismissEmployee()
+        {
+            if (SelectedEmployee == null)
+            {
+                return;
+            }
+
+            SelectedEmployee.EmploymentEndDate = DateTime.Today;
+
+            if (SelectedEmployee.Id > 0)
+            {
+                var employee = AppData.Db.Employee.FirstOrDefault(item => item.Id == SelectedEmployee.Id);
+                if (employee != null)
+                {
+                    employee.EmploymentEndDate = SelectedEmployee.EmploymentEndDate;
+                    AppData.Db.SaveChanges();
+                }
+            }
+
+            ApplyDepartmentFilter();
+        }
+
+        public void AddEmployeeEvent()
+        {
+            EventValidationErrors.Clear();
+
+            if (SelectedEmployee == null)
+            {
+                EventValidationErrors.Add("Сотрудник не выбран.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(SelectedEventType))
+            {
+                EventValidationErrors.Add("Выберите тип события.");
+            }
+
+            if (!NewEventStartDate.HasValue || !NewEventEndDate.HasValue)
+            {
+                EventValidationErrors.Add("Укажите дату начала и окончания.");
+            }
+            else if (NewEventStartDate.Value.Date > NewEventEndDate.Value.Date)
+            {
+                EventValidationErrors.Add("Дата начала не может быть позже даты окончания.");
+            }
+
+            if (EventValidationErrors.Count > 0)
+            {
+                return;
+            }
+
+            var newEvent = new EmployeeEventModel
+            {
+                EmployeeId = SelectedEmployee.Id,
+                EventType = SelectedEventType,
+                StartDate = NewEventStartDate!.Value.Date,
+                EndDate = NewEventEndDate!.Value.Date,
+                Reason = NewEventReason
+            };
+
+            EmployeeEvents.Add(newEvent);
+            RefreshEmployeeEventsView();
+
+            SelectedEventType = null;
+            NewEventStartDate = DateTime.Today;
+            NewEventEndDate = DateTime.Today;
+            NewEventReason = null;
+        }
+
+        public void DeleteEmployeeEvent(EmployeeEventModel employeeEvent)
+        {
+            if (employeeEvent == null || EmployeeEvents == null)
+            {
+                return;
+            }
+
+            EmployeeEvents.Remove(employeeEvent);
+            RefreshEmployeeEventsView();
+        }
+
+        private void LoadEmployeeEvents(EmployeeCardModel employee)
+        {
+            EmployeeEvents = new ObservableCollection<EmployeeEventModel>();
+            EmployeeEventsView = CollectionViewSource.GetDefaultView(EmployeeEvents);
+            EmployeeEventsView.Filter = item => FilterEventByPeriod(item as EmployeeEventModel);
+            RefreshEmployeeEventsView();
+        }
+
+        private bool FilterEventByPeriod(EmployeeEventModel employeeEvent)
+        {
+            if (employeeEvent == null)
+            {
+                return false;
+            }
+
+            var today = DateTime.Today;
+            var isPast = employeeEvent.EndDate.Date < today;
+            var isFuture = employeeEvent.StartDate.Date > today;
+            var isCurrent = !isPast && !isFuture;
+
+            return (ShowPastEvents && isPast)
+                || (ShowCurrentEvents && isCurrent)
+                || (ShowFutureEvents && isFuture);
+        }
+
+        private void RefreshEmployeeEventsView()
+        {
+            EmployeeEventsView?.Refresh();
+        }
+
+        private void UpdateDepartmentEmployees(int departmentId)
+        {
+            if (departmentId <= 0)
+            {
+                DepartmentEmployees = new ObservableCollection<EmployeeLookupModel>();
+                return;
+            }
+
+            var employees = AppData.Db.Employee
+                .AsNoTracking()
+                .Where(item => item.IdEmployeeDepartment == departmentId)
+                .Select(item => new EmployeeLookupModel
+                {
+                    Id = item.Id,
+                    FullName = item.FullName
+                })
+                .ToList();
+
+            DepartmentEmployees = new ObservableCollection<EmployeeLookupModel>(employees);
+        }
+
+        private bool IsVisibleInList(EmployeeCardModel employee)
+        {
+            return employee != null && !employee.IsDismissedRecently;
+        }
+
+        private void ApplyDepartmentFilter()
+        {
+            FilterEmployeesByDepartment(SelectedDepartmentName);
+        }
+
+        public sealed class EmployeeEventModel
+        {
+            public int EmployeeId { get; set; }
+            public string EventType { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public string Reason { get; set; }
+        }
+    }
 }
