@@ -329,7 +329,7 @@ namespace HrManagement.Controllers
             EmployeeCards = new ObservableCollection<EmployeeCardModel>(filtered);
         }
 
-        private void OpenEmployeeCard(EmployeeCardModel employee)
+        public void OpenEmployeeCard(EmployeeCardModel employee)
         {
             if (employee == null)
             {
@@ -344,7 +344,7 @@ namespace HrManagement.Controllers
             EventValidationErrors.Clear();
         }
 
-        private void CloseEmployeeCard()
+        public void CloseEmployeeCard()
         {
             ValidationErrors.Clear();
             EventValidationErrors.Clear();
@@ -353,7 +353,7 @@ namespace HrManagement.Controllers
             IsNewEmployee = false;
         }
 
-        private void StartEditEmployee()
+        public void StartEditEmployee()
         {
             if (SelectedEmployee == null)
             {
@@ -364,7 +364,7 @@ namespace HrManagement.Controllers
             IsEditing = true;
         }
 
-        private void CancelEditEmployee()
+        public void CancelEditEmployee()
         {
             if (SelectedEmployee == null)
             {
@@ -384,7 +384,7 @@ namespace HrManagement.Controllers
             UpdateDepartmentEmployees(SelectedEmployee.IdEmployeeDepartment);
         }
 
-        private void SaveEmployee()
+        public void SaveEmployee()
         {
             if (SelectedEmployee == null)
             {
@@ -546,7 +546,7 @@ namespace HrManagement.Controllers
                 || employee.EmploymentEndDate.Value.Date >= DateTime.Today.AddDays(-30);
         }
 
-        private void DismissEmployee()
+        public void DismissEmployee()
         {
             ValidationErrors.Clear();
 
@@ -613,7 +613,7 @@ namespace HrManagement.Controllers
             ApplyDepartmentFilter();
         }
 
-        private void AddEmployee()
+        public void AddEmployee()
         {
             var preselectedDepartment = Departments
                 .FirstOrDefault(item => string.Equals(item.NameDepartment, SelectedDepartmentName, System.StringComparison.OrdinalIgnoreCase));
@@ -773,7 +773,7 @@ namespace HrManagement.Controllers
             EmployeeEventsView.Refresh();
         }
 
-        private void AddEmployeeEvent()
+        public void AddEmployeeEvent()
         {
             EventValidationErrors.Clear();
 
@@ -897,7 +897,7 @@ namespace HrManagement.Controllers
             RefreshEmployeeEventsView();
         }
 
-        private void DeleteEmployeeEvent(EmployeeEventModel employeeEvent)
+        public void DeleteEmployeeEvent(EmployeeEventModel employeeEvent)
         {
             if (employeeEvent == null || EmployeeEvents == null || SelectedEmployee == null || SelectedEmployee.Id <= 0)
             {

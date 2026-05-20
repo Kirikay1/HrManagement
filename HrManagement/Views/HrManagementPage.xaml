@@ -116,8 +116,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center" 
                             Content="Дороги России" 
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{x:Null}"
+                            Click="FilterByDepartment_Click" Tag=""
                             Padding="8" 
                             Canvas.Left="300" Canvas.Top="8"/>
 
@@ -127,8 +126,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center"
                             Content="Административный департамент"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                            Click="FilterByDepartment_Click"
                             Padding="8" 
                             Canvas.Left="140" Canvas.Top="60"/>
 
@@ -138,8 +136,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center" 
                             Content="Академия Умные дороги" 
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                            Click="FilterByDepartment_Click"
                             Padding="8" 
                             Canvas.Left="380" Canvas.Top="60" Width="180"/>
 
@@ -149,8 +146,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center" 
                             Content="Договорной отдел" 
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                            Click="FilterByDepartment_Click"
                             Padding="8" 
                             Canvas.Left="30" Canvas.Top="120" Width="160"/>
 
@@ -160,8 +156,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center" 
                             Content="Общий отдел"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                            Click="FilterByDepartment_Click"
                             Padding="8" 
                             Canvas.Left="250" Canvas.Top="120" Width="180"/>
 
@@ -171,8 +166,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center" 
                             Content="Управление маркетинга"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                            Click="FilterByDepartment_Click"
                             Padding="8" 
                             Canvas.Left="380" Canvas.Top="180" Width="180"/>
 
@@ -182,8 +176,7 @@
                             BorderBrush="#BFDFA3"
                             HorizontalAlignment="Center" 
                             Content="Лицензионный отдел"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                            Click="FilterByDepartment_Click"
                             Padding="8" 
                             Canvas.Left="170" Canvas.Top="180" Width="160"/>
 
@@ -219,8 +212,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource CardButtonStyle}"
-                                            Command="{Binding DataContext.OpenEmployeeCardCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            CommandParameter="{Binding}">
+                                            Click="OpenEmployeeCard_Click">
                                         <Border Style="{StaticResource PaleCard}">
                                             <StackPanel>
                                                 <TextBlock FontSize="12" Foreground="Gray">
@@ -253,7 +245,7 @@
                             Margin="0,0,12,12" 
                             FontSize="20" 
                             FontWeight="Bold"
-                            Command="{Binding AddEmployeeCommand}">
+                            Click="AddEmployee_Click">
                         +
                     </Button>
                 </Grid>
@@ -303,7 +295,7 @@
                                 FontSize="16"
                                 Content="✎"
                                 ToolTip="Редактировать"
-                                Command="{Binding DataContext.StartEditEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="StartEditEmployee_Click"/>
                         <Button Grid.Column="2"
                                 Padding="10,0"
                                 Height="32"
@@ -313,7 +305,7 @@
                                 BorderBrush="#C55A5A"
                                 Content="Уволить"
                                 ToolTip="Уволить сотрудника"
-                                Command="{Binding DataContext.DismissEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="DismissEmployee_Click"/>
                         <Button Grid.Column="3"
                                 Width="32"
                                 Height="32"
@@ -322,7 +314,7 @@
                                 FontSize="14"
                                 Content="✕"
                                 ToolTip="Закрыть"
-                                Command="{Binding DataContext.CloseEmployeeCardCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="CloseEmployeeCard_Click"/>
                     </Grid>
 
                     <ScrollViewer Grid.Row="1" Margin="0,16,0,0">
@@ -494,8 +486,7 @@
                                                                     Margin="8,0,0,0"
                                                                     Padding="8,2"
                                                                     IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                                    Command="{Binding DataContext.DeleteEmployeeEventCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                                    CommandParameter="{Binding}"/>
+                                                                    Click="DeleteEmployeeEvent_Click" Tag="{Binding}"/>
                                                         </Grid>
                                                     </Border>
                                                 </DataTemplate>
@@ -545,7 +536,7 @@
                                                     Background="{StaticResource AccentGreenBrush}"
                                                     Foreground="White"
                                                     BorderBrush="#5C8D3B"
-                                                    Command="{Binding DataContext.AddEmployeeEventCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                                    Click="AddEmployeeEvent_Click"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
@@ -563,13 +554,13 @@
                                 Foreground="White"
                                 BorderBrush="#5C8D3B"
                                 Visibility="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BoolToVisibilityConverter}}"
-                                Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="SaveEmployee_Click"/>
                         <Button Content="Отмена"
                                 Width="120"
                                 Background="#F2F2F2"
                                 BorderBrush="#C7C7C7"
                                 Visibility="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BoolToVisibilityConverter}}"
-                                Command="{Binding DataContext.CancelEditEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="CancelEditEmployee_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>

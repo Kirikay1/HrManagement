@@ -11,14 +11,15 @@ namespace HrManagement.Views
     /// </summary>
     public partial class HrManagementPage : Page
     {
-        private readonly HrManagementController controller;
+        private readonly HrManagementPageController pageController;
 
         public HrManagementPage()
         {
             InitializeComponent();
 
-            controller = new HrManagementController(AppData.Db);
-            DataContext = new HrManagementPageController(controller);
+            var controller = new HrManagementController(AppData.Db);
+            pageController = new HrManagementPageController(controller);
+            DataContext = pageController;
 
             Loaded += (_, __) => UpdateLines();
             SizeChanged += (_, __) => UpdateLines();
@@ -31,6 +32,19 @@ namespace HrManagement.Views
             nodeLicense.SizeChanged += (_, __) => UpdateLines();
             nodeMarketing.SizeChanged += (_, __) => UpdateLines();
         }
+
+
+        private void RefreshBindings() { DataContext = null; DataContext = pageController; }
+        private void FilterByDepartment_Click(object sender, RoutedEventArgs e) { var d=(sender as Button)?.Content?.ToString(); if(d=="Дороги России") d=null; pageController.FilterEmployeesByDepartment(d); RefreshBindings(); }
+        private void OpenEmployeeCard_Click(object sender, RoutedEventArgs e) { pageController.OpenEmployeeCard((sender as FrameworkElement)?.DataContext as EmployeeCardModel); RefreshBindings(); }
+        private void AddEmployee_Click(object sender, RoutedEventArgs e) { pageController.AddEmployee(); RefreshBindings(); }
+        private void StartEditEmployee_Click(object sender, RoutedEventArgs e) { pageController.StartEditEmployee(); RefreshBindings(); }
+        private void DismissEmployee_Click(object sender, RoutedEventArgs e) { pageController.DismissEmployee(); RefreshBindings(); }
+        private void CloseEmployeeCard_Click(object sender, RoutedEventArgs e) { pageController.CloseEmployeeCard(); RefreshBindings(); }
+        private void SaveEmployee_Click(object sender, RoutedEventArgs e) { pageController.SaveEmployee(); RefreshBindings(); }
+        private void CancelEditEmployee_Click(object sender, RoutedEventArgs e) { pageController.CancelEditEmployee(); RefreshBindings(); }
+        private void AddEmployeeEvent_Click(object sender, RoutedEventArgs e) { pageController.AddEmployeeEvent(); RefreshBindings(); }
+        private void DeleteEmployeeEvent_Click(object sender, RoutedEventArgs e) { var ev=(sender as FrameworkElement)?.Tag as HrManagementPageController.EmployeeEventModel; pageController.DeleteEmployeeEvent(ev); RefreshBindings(); }
 
         private void UpdateLines()
         {
