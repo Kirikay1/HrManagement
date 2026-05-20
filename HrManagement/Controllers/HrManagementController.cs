@@ -21,7 +21,7 @@ public sealed class HrManagementController
 
         if (!string.IsNullOrWhiteSpace(departmentName))
         {
-            query = query.Where(e => e.Department.Name == departmentName);
+            query = query.Where(e => e.Department != null && e.Department.NameDepartment == departmentName);
         }
 
         return query.ToList();
