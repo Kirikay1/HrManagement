@@ -1,25 +1,22 @@
 ﻿using HrManagement.Controllers;
 using HrManagement.Model;
-using HrManagement.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
 namespace HrManagement.Views
 {
-    /// <summary>
-    /// MVC-style page where code-behind acts as View and delegates data actions to controller.
-    /// </summary>
     public partial class HrManagementPage : Page
     {
-        private readonly HrManagementController controller;
+        private readonly HrManagementPageController pageController;
 
         public HrManagementPage()
         {
             InitializeComponent();
 
-            controller = new HrManagementController(AppData.Db);
-            DataContext = new HrManagementPageViewModel(controller);
+            var controller = new HrManagementController(AppData.Db);
+            pageController = new HrManagementPageController(controller);
+            DataContext = pageController;
 
             Loaded += (_, __) => UpdateLines();
             SizeChanged += (_, __) => UpdateLines();
@@ -33,10 +30,24 @@ namespace HrManagement.Views
             nodeMarketing.SizeChanged += (_, __) => UpdateLines();
         }
 
+        private void FilterByDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            var department = (sender as Button)?.Content?.ToString();
+            if (department == "Дороги России") department = null;
+            pageController.FilterEmployeesByDepartment(department);
+        }
+
+        private void OpenEmployeeCard_Click(object sender, RoutedEventArgs e) => pageController.OpenEmployeeCard((sender as FrameworkElement)?.DataContext as EmployeeCardModel);
+        private void AddEmployee_Click(object sender, RoutedEventArgs e) => pageController.AddEmployee();
+        private void StartEditEmployee_Click(object sender, RoutedEventArgs e) => pageController.StartEditEmployee();
+        private void DismissEmployee_Click(object sender, RoutedEventArgs e) => pageController.DismissEmployee();
+        private void CloseEmployeeCard_Click(object sender, RoutedEventArgs e) => pageController.CloseEmployeeCard();
+        private void SaveEmployee_Click(object sender, RoutedEventArgs e) => pageController.SaveEmployee();
+        private void CancelEditEmployee_Click(object sender, RoutedEventArgs e) => pageController.CancelEditEmployee();
+
         private void UpdateLines()
         {
             if (canvasOrgChart == null) return;
-
             SetLine(lineTopToLeft, nodeTop, 0.50, 1.00, nodeLeftDept, 0.50, 0.00);
             SetLine(lineTopToRight, nodeTop, 0.50, 1.00, nodeRightDept, 0.50, 0.00);
             SetLine(lineLeftToContract, nodeLeftDept, 0.15, 1.00, nodeContract, 0.35, 0.00);
@@ -45,18 +56,13 @@ namespace HrManagement.Views
             SetLine(lineCommonToMarketingRight, nodeCommon, 0.70, 1.00, nodeMarketing, 0.50, 0.00);
         }
 
-        private void SetLine(Line line,
-                             FrameworkElement from, double fromRelX, double fromRelY,
-                             FrameworkElement to, double toRelX, double toRelY)
+        private void SetLine(Line line, FrameworkElement from, double fromRelX, double fromRelY, FrameworkElement to, double toRelX, double toRelY)
         {
             if (line == null || from == null || to == null || canvasOrgChart == null) return;
             if (from.ActualWidth <= 0 || from.ActualHeight <= 0 || to.ActualWidth <= 0 || to.ActualHeight <= 0) return;
-
             var p1 = from.TranslatePoint(new Point(from.ActualWidth * fromRelX, from.ActualHeight * fromRelY), canvasOrgChart);
             var p2 = to.TranslatePoint(new Point(to.ActualWidth * toRelX, to.ActualHeight * toRelY), canvasOrgChart);
-
-            line.X1 = p1.X; line.Y1 = p1.Y;
-            line.X2 = p2.X; line.Y2 = p2.Y;
+            line.X1 = p1.X; line.Y1 = p1.Y; line.X2 = p2.X; line.Y2 = p2.Y;
         }
     }
 }
