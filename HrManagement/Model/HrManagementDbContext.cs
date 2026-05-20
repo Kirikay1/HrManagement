@@ -44,6 +44,12 @@ public sealed class HrManagementDbContext : DbContext
         modelBuilder.Entity<Material>().ToTable("Material");
         modelBuilder.Entity<typeEvent>().ToTable("typeEvent");
 
+        modelBuilder.Entity<Department>()
+            .HasOne(d => d.Department2)
+            .WithMany(d => d.Department1)
+            .HasForeignKey(d => d.ParentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         modelBuilder.Entity<Employee>()
             .HasOne(e => e.Department)
             .WithMany(d => d.Employee)
