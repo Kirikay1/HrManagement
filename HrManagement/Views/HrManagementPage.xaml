@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HrManagement.Views"
-      xmlns:viewModel="clr-namespace:HrManagement.ViewModel"
       xmlns:converters="clr-namespace:HrManagement.Converters"
       mc:Ignorable="d">
 
@@ -85,159 +84,16 @@
                            />
                 </Border>
 
-                <Border Grid.Column="1"
-                    Background="White"
-                    CornerRadius="10"
-                    Height="40"
-                    VerticalAlignment="Center"
-                    Margin="24,0">
-                    <TextBlock Text="Организационная структура"
-                           VerticalAlignment="Center"
-                           Margin="12,0"
-                           FontWeight="Bold"
-                           Foreground="Black"/>
-                </Border>
-            </Grid>
-        </Border>
-
-        <!-- Content -->
-        <Grid Grid.Row="1" Margin="18,18,18,18">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="640"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Левая панель -->
-            <Border Background="{StaticResource PanelGrayBrush}" Padding="18" CornerRadius="2" Margin="0,0,12,0">
-                <Canvas x:Name="canvasOrgChart" MinHeight="560" MinWidth="690">
-
-                    <!-- Дороги России -->
-                    <Button x:Name="nodeTop" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center" 
-                            Content="Дороги России" 
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{x:Null}"
-                            Padding="8" 
-                            Canvas.Left="300" Canvas.Top="8"/>
-
-                    <!-- Административный департамент -->
-                    <Button x:Name="nodeLeftDept" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center"
-                            Content="Административный департамент"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Padding="8" 
-                            Canvas.Left="140" Canvas.Top="60"/>
-
-                    <!-- Академия Умные дороги -->
-                    <Button x:Name="nodeRightDept" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center" 
-                            Content="Академия Умные дороги" 
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Padding="8" 
-                            Canvas.Left="380" Canvas.Top="60" Width="180"/>
-
-                    <!-- Договорной отдел -->
-                    <Button x:Name="nodeContract" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center" 
-                            Content="Договорной отдел" 
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Padding="8" 
-                            Canvas.Left="30" Canvas.Top="120" Width="160"/>
-
-                    <!-- Общий отдел -->
-                    <Button x:Name="nodeCommon" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center" 
-                            Content="Общий отдел"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Padding="8" 
-                            Canvas.Left="250" Canvas.Top="120" Width="180"/>
-
-                    <!-- Управление маркетинга -->
-                    <Button x:Name="nodeMarketing" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center" 
-                            Content="Управление маркетинга"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Padding="8" 
-                            Canvas.Left="380" Canvas.Top="180" Width="180"/>
-
-                    <!-- Лицензионный отдел -->
-                    <Button x:Name="nodeLicense" 
-                            Background="{StaticResource CardGreenBrush}" 
-                            BorderBrush="#BFDFA3"
-                            HorizontalAlignment="Center" 
-                            Content="Лицензионный отдел"
-                            Command="{Binding FilterByDepartmentCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
-                            Padding="8" 
-                            Canvas.Left="170" Canvas.Top="180" Width="160"/>
-
-                    <!-- Линии -->
-                    <!-- Линии (лучше ниже по ZIndex, чтобы не перекрывали карточки) -->
-                    <Line x:Name="lineTopToLeft" Stroke="Black" StrokeThickness="1.4" Canvas.ZIndex="0"/>
-                    <Line x:Name="lineTopToRight" Stroke="Black" StrokeThickness="1.4" Canvas.ZIndex="0"/>
-
-                    <Line x:Name="lineLeftToContract" Stroke="Black" StrokeThickness="1.2" Canvas.ZIndex="0"/>
-
-                    <!-- НОВАЯ линия: Адм. департамент -> Общий отдел -->
-                    <Line x:Name="lineLeftToCommon" Stroke="Black" StrokeThickness="1.2" Canvas.ZIndex="0"/>
-
-                    <Line x:Name="lineRightToCommon" Stroke="Black" StrokeThickness="1.2" Canvas.ZIndex="0"/>
-
-                    <!-- Общий отдел -> нижние блоки -->
-                    <Line x:Name="lineCommonToContractLeft" Stroke="Black" StrokeThickness="1.2" Canvas.ZIndex="0"/>
-                    <Line x:Name="lineCommonToMarketingRight" Stroke="Black" StrokeThickness="1.2" Canvas.ZIndex="0"/>
-                </Canvas>
-            </Border>
-
-            <!-- Правая панель -->
-            <Border Grid.Column="1" Background="{StaticResource PanelGrayBrush}" Padding="18" CornerRadius="2">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
-
-                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                        <!-- карточка -->
-                        <ItemsControl ItemsSource="{Binding EmployeeCards}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource CardButtonStyle}"
-                                            Command="{Binding DataContext.OpenEmployeeCardCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            CommandParameter="{Binding}">
-                                        <Border Style="{StaticResource PaleCard}">
-                                            <StackPanel>
-                                                <TextBlock FontSize="12" Foreground="Gray">
-                                                    <Run Text="{Binding DepartmentName}" />
-                                                    <Run Text=" — " />
-                                                    <Run Text="{Binding PositionName}" />
-                                                </TextBlock>
-                                                <TextBlock FontWeight="Bold" FontSize="14" Margin="0,6,0,0" Text="{Binding FullName}" />
-                                                <TextBlock Margin="0,6,0,0">
-                                                    <Run Text="{Binding WorkPhone}" />
-                                                    <Run Text="   " />
-                                                    <Run Text="{Binding Email}" />
-                                                </TextBlock>
-                                                <TextBlock Margin="0,6,0,0" Foreground="Gray" Text="{Binding EmployeeOffice}" />
-                                            </StackPanel>
-                                        </Border>
+                                                <Border Grid.Column="1"
+                                        Background="#FAFAFA"
+                                        BorderBrush="{StaticResource SoftBorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Padding="12">
+                                    <TextBlock Text="События сотрудника отключены в MVC-версии"
+                                               Foreground="Gray"
+                                               TextWrapping="Wrap"/>
+                                </Border>
                                     </Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -254,7 +110,7 @@
                             Margin="0,0,12,12" 
                             FontSize="20" 
                             FontWeight="Bold"
-                            Command="{Binding AddEmployeeCommand}">
+                            Click="AddEmployee_Click">
                         +
                     </Button>
                 </Grid>
@@ -304,7 +160,7 @@
                                 FontSize="16"
                                 Content="✎"
                                 ToolTip="Редактировать"
-                                Command="{Binding DataContext.StartEditEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="StartEditEmployee_Click"/>
                         <Button Grid.Column="2"
                                 Padding="10,0"
                                 Height="32"
@@ -314,7 +170,7 @@
                                 BorderBrush="#C55A5A"
                                 Content="Уволить"
                                 ToolTip="Уволить сотрудника"
-                                Command="{Binding DataContext.DismissEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="DismissEmployee_Click"/>
                         <Button Grid.Column="3"
                                 Width="32"
                                 Height="32"
@@ -323,7 +179,7 @@
                                 FontSize="14"
                                 Content="✕"
                                 ToolTip="Закрыть"
-                                Command="{Binding DataContext.CloseEmployeeCardCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="CloseEmployeeCard_Click"/>
                     </Grid>
 
                     <ScrollViewer Grid.Row="1" Margin="0,16,0,0">
@@ -445,109 +301,10 @@
                                         <TextBlock Text="События сотрудника"
                                                    FontWeight="Bold"
                                                    FontSize="14"/>
-
-                                        <StackPanel Orientation="Horizontal" Margin="0,8,0,12">
-                                            <ToggleButton Style="{StaticResource FilterToggleStyle}"
-                                                          Content="Прошедшие"
-                                                          IsChecked="{Binding DataContext.ShowPastEvents, RelativeSource={RelativeSource AncestorType=Page}}"/>
-                                            <ToggleButton Style="{StaticResource FilterToggleStyle}"
-                                                          Content="Текущие"
-                                                          IsChecked="{Binding DataContext.ShowCurrentEvents, RelativeSource={RelativeSource AncestorType=Page}}"/>
-                                            <ToggleButton Style="{StaticResource FilterToggleStyle}"
-                                                          Content="Будущие"
-                                                          IsChecked="{Binding DataContext.ShowFutureEvents, RelativeSource={RelativeSource AncestorType=Page}}"/>
-                                        </StackPanel>
-
-                                        <ItemsControl ItemsSource="{Binding DataContext.EmployeeEventsView, RelativeSource={RelativeSource AncestorType=Page}}">
-                                            <ItemsControl.GroupStyle>
-                                                <GroupStyle>
-                                                    <GroupStyle.HeaderTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock Text="{Binding Name}"
-                                                                       FontWeight="SemiBold"
-                                                                       Margin="0,6,0,4"/>
-                                                        </DataTemplate>
-                                                    </GroupStyle.HeaderTemplate>
-                                                </GroupStyle>
-                                            </ItemsControl.GroupStyle>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Background="White"
-                                                            BorderBrush="{StaticResource SoftBorderBrush}"
-                                                            BorderThickness="1"
-                                                            CornerRadius="4"
-                                                            Padding="8"
-                                                            Margin="0,0,0,8">
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
-                                                            <StackPanel>
-                                                                <TextBlock FontWeight="SemiBold"
-                                                                           Text="{Binding DateRangeDisplay}"/>
-                                                                <TextBlock Text="{Binding Reason, StringFormat=Обоснование: {0}}"
-                                                                           Foreground="Gray"
-                                                                           TextWrapping="Wrap"/>
-                                                            </StackPanel>
-                                                            <Button Grid.Column="1"
-                                                                    Content="Удалить"
-                                                                    Margin="8,0,0,0"
-                                                                    Padding="8,2"
-                                                                    IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                                    Command="{Binding DataContext.DeleteEmployeeEventCommand, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                                    CommandParameter="{Binding}"/>
-                                                        </Grid>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-
-                                        <Separator Margin="0,8,0,8"/>
-
-                                        <TextBlock Text="Добавить событие"
-                                                   FontWeight="SemiBold"
-                                                   Margin="0,0,0,8"/>
-
-                                        <StackPanel IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}">
-                                            <TextBlock Text="Тип события *" Margin="0,0,0,4"/>
-                                            <ComboBox ItemsSource="{Binding DataContext.EventTypeOptions, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                      SelectedItem="{Binding DataContext.SelectedEventType, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                      Margin="0,0,0,8"/>
-
-                                            <TextBlock Text="Дата начала *" Margin="0,0,0,4"/>
-                                            <DatePicker SelectedDate="{Binding DataContext.NewEventStartDate, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                        Margin="0,0,0,8"/>
-
-                                            <TextBlock Text="Дата окончания *" Margin="0,0,0,4"/>
-                                            <DatePicker SelectedDate="{Binding DataContext.NewEventEndDate, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                        Margin="0,0,0,8"/>
-
-                                            <TextBlock Text="Обоснование" Margin="0,0,0,4"/>
-                                            <TextBox Text="{Binding DataContext.NewEventReason, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                     Height="60"
-                                                     TextWrapping="Wrap"
-                                                     AcceptsReturn="True"/>
-
-                                            <ItemsControl ItemsSource="{Binding DataContext.EventValidationErrors, RelativeSource={RelativeSource AncestorType=Page}}"
-                                                          Margin="0,8,0,0">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Foreground="#C62828"
-                                                                   Text="{Binding}"
-                                                                   Margin="0,0,0,4"/>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-
-                                            <Button Content="Добавить"
-                                                    Width="140"
-                                                    Margin="0,8,0,0"
-                                                    Background="{StaticResource AccentGreenBrush}"
-                                                    Foreground="White"
-                                                    BorderBrush="#5C8D3B"
-                                                    Command="{Binding DataContext.AddEmployeeEventCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
-                                        </StackPanel>
+                                        <TextBlock Margin="0,8,0,0"
+                                                   Foreground="Gray"
+                                                   TextWrapping="Wrap"
+                                                   Text="События отключены. Страница полностью работает в MVC-режиме без event-модуля."/>
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -564,13 +321,13 @@
                                 Foreground="White"
                                 BorderBrush="#5C8D3B"
                                 Visibility="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BoolToVisibilityConverter}}"
-                                Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="SaveEmployee_Click"/>
                         <Button Content="Отмена"
                                 Width="120"
                                 Background="#F2F2F2"
                                 BorderBrush="#C7C7C7"
                                 Visibility="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BoolToVisibilityConverter}}"
-                                Command="{Binding DataContext.CancelEditEmployeeCommand, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                                Click="CancelEditEmployee_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>
