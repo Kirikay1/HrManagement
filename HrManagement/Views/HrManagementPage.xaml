@@ -81,13 +81,24 @@
                     <Grid Grid.Row="1" Margin="0,16,0,0">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="ФИО *"/><TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
                         <TextBlock Grid.Row="1" Text="Телефон"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WorkPhone, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
                         <TextBlock Grid.Row="2" Text="Email"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
                         <TextBlock Grid.Row="3" Text="Кабинет"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EmployeeOffice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
-                        <TextBlock Grid.Row="4" Text="События"/><TextBlock Grid.Row="4" Grid.Column="1" Text="События отключены в MVC-версии" Foreground="Gray"/>
+                        <TextBlock Grid.Row="4" Text="События" VerticalAlignment="Top"/>
+                        <StackPanel Grid.Row="4" Grid.Column="1">
+                            <ItemsControl ItemsSource="{Binding DataContext.EmployeeEvents, RelativeSource={RelativeSource AncestorType=Page}}">
+                                <ItemsControl.ItemTemplate><DataTemplate><StackPanel Orientation="Horizontal"><TextBlock Text="{Binding TypeName}" FontWeight="Bold"/><TextBlock Text=": "/><TextBlock Text="{Binding DateRangeDisplay}"/><Button Margin="8,0,0,0" Click="DeleteEmployeeEvent_Click" Tag="{Binding}">Удалить</Button></StackPanel></DataTemplate></ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="0,8,0,0">
+                            <ComboBox Width="120" ItemsSource="{Binding DataContext.EventTypeOptions, RelativeSource={RelativeSource AncestorType=Page}}" SelectedItem="{Binding DataContext.SelectedEventType, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                            <DatePicker Margin="8,0,0,0" SelectedDate="{Binding DataContext.NewEventStartDate, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                            <DatePicker Margin="8,0,0,0" SelectedDate="{Binding DataContext.NewEventEndDate, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                            <Button Margin="8,0,0,0" Click="AddEmployeeEvent_Click">Добавить событие</Button>
+                        </StackPanel>
                     </Grid>
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
                         <Button Width="120" Margin="0,0,8,0" Visibility="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BoolToVisibilityConverter}}" Click="SaveEmployee_Click">Сохранить</Button>

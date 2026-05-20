@@ -85,6 +85,19 @@ namespace HrManagement.Views
             RefreshBindings();
         }
 
+        private void AddEmployeeEvent_Click(object sender, RoutedEventArgs e)
+        {
+            pageController.AddEmployeeEvent();
+            RefreshBindings();
+        }
+
+        private void DeleteEmployeeEvent_Click(object sender, RoutedEventArgs e)
+        {
+            var ev = (sender as FrameworkElement)?.Tag as HrManagement.Controllers.HrManagementPageController.EmployeeEventModel;
+            pageController.DeleteEmployeeEvent(ev);
+            RefreshBindings();
+        }
+
         private void UpdateLines()
         {
             if (canvasOrgChart == null) return;
