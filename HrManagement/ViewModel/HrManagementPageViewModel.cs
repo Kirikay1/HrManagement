@@ -1,9 +1,10 @@
-﻿using HrManagement.Model;
+﻿using HrManagement.Controllers;
+using HrManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
@@ -43,8 +44,11 @@ namespace HrManagement.ViewModel
         private bool showFutureEvents = true;
         private int currentEmployeeKey = NewEmployeeTemporaryKey;
 
-        public HrManagementPageViewModel()
+        private readonly HrManagementController controller;
+
+        public HrManagementPageViewModel(HrManagementController controller)
         {
+            this.controller = controller;
             LoadEmployees();
             LoadReferenceData();
             FilterByDepartmentCommand = new RelayCommand(parameter => FilterEmployeesByDepartment(parameter as string));
@@ -277,10 +281,7 @@ namespace HrManagement.ViewModel
 
         private void LoadEmployees()
         {
-            var employees = AppData.db.Employee
-                .Include(employee => employee.Department)
-                .Include(employee => employee.Position)
-                .ToList();
+            var employees = controller.GetEmployees();
 
             allEmployeeCards.Clear();
             allEmployeeCards.AddRange(employees.Select(employee => new EmployeeCardViewModel
@@ -307,8 +308,8 @@ namespace HrManagement.ViewModel
 
         private void LoadReferenceData()
         {
-            Departments = new ObservableCollection<Department>(AppData.db.Department.ToList());
-            Positions = new ObservableCollection<Position>(AppData.db.Position.ToList());
+            Departments = new ObservableCollection<Department>(AppData.Db.Department.ToList());
+            Positions = new ObservableCollection<Position>(AppData.Db.Position.ToList());
             DepartmentEmployees = new ObservableCollection<EmployeeLookupViewModel>();
         }
 
@@ -399,7 +400,7 @@ namespace HrManagement.ViewModel
             var isCreating = IsNewEmployee || SelectedEmployee.Id <= 0;
             var employee = isCreating
                 ? new Employee()
-                : AppData.db.Employee.FirstOrDefault(item => item.Id == SelectedEmployee.Id);
+                : AppData.Db.Employee.FirstOrDefault(item => item.Id == SelectedEmployee.Id);
             if (employee == null)
             {
                 ValidationErrors.Clear();
@@ -427,10 +428,10 @@ namespace HrManagement.ViewModel
 
             if (isCreating)
             {
-                AppData.db.Employee.Add(employee);
+                AppData.Db.Employee.Add(employee);
             }
 
-            AppData.db.SaveChanges();
+            AppData.Db.SaveChanges();
             if (isCreating)
             {
                 SelectedEmployee.Id = employee.Id;
@@ -555,7 +556,7 @@ namespace HrManagement.ViewModel
                 return;
             }
 
-            var dbEmployee = AppData.db.Employee
+            var dbEmployee = AppData.Db.Employee
                 .Include(item => item.Calendar)
                 .Include(item => item.Calendar.LearningCalendar)
                 .Include(item => item.Calendar.VacationCalendar)
@@ -594,13 +595,13 @@ namespace HrManagement.ViewModel
             {
                 if (calendar.VacationCalendar != null && calendar.VacationCalendar.EndVacation.Date >= today)
                 {
-                    AppData.db.VacationCalendar.Remove(calendar.VacationCalendar);
+                    AppData.Db.VacationCalendar.Remove(calendar.VacationCalendar);
                     calendar.IdVacationCalendar = null;
                 }
 
                 if (calendar.WorkingCalendar != null && calendar.WorkingCalendar.EndExceptionDate.Date >= today)
                 {
-                    AppData.db.WorkingCalendar.Remove(calendar.WorkingCalendar);
+                    AppData.Db.WorkingCalendar.Remove(calendar.WorkingCalendar);
                     calendar.IdWorkingCalendar = null;
                 }
             }
@@ -608,7 +609,7 @@ namespace HrManagement.ViewModel
             dbEmployee.EmploymentEndDate = today;
             SelectedEmployee.EmploymentEndDate = today;
 
-            AppData.db.SaveChanges();
+            AppData.Db.SaveChanges();
             LoadEmployeeEvents(SelectedEmployee);
             ApplyDepartmentFilter();
         }
@@ -671,7 +672,7 @@ namespace HrManagement.ViewModel
                 return;
             }
 
-            var dbEmployee = AppData.db.Employee
+            var dbEmployee = AppData.Db.Employee
             .Include(item => item.Calendar)
             .Include(item => item.Calendar.VacationCalendar)
             .Include(item => item.Calendar.LearningCalendar)
@@ -836,7 +837,7 @@ namespace HrManagement.ViewModel
                 return;
             }
 
-            var dbEmployee = AppData.db.Employee
+            var dbEmployee = AppData.Db.Employee
                 .Include(item => item.Calendar)
                 .FirstOrDefault(item => item.Id == SelectedEmployee.Id);
 
@@ -856,8 +857,8 @@ namespace HrManagement.ViewModel
                     reasonVacation = reason
                 };
 
-                AppData.db.VacationCalendar.Add(vacation);
-                AppData.db.SaveChanges();
+                AppData.Db.VacationCalendar.Add(vacation);
+                AppData.Db.SaveChanges();
                 calendar.IdVacationCalendar = vacation.Id;
             }
             else if (SelectedEventType == "Обучение")
@@ -869,8 +870,8 @@ namespace HrManagement.ViewModel
                     reasonLearning = reason
                 };
 
-                AppData.db.LearningCalendar.Add(learning);
-                AppData.db.SaveChanges();
+                AppData.Db.LearningCalendar.Add(learning);
+                AppData.Db.SaveChanges();
                 calendar.IdLearningCalendar = learning.Id;
             }
             else if (SelectedEventType == "Отгул")
@@ -883,12 +884,12 @@ namespace HrManagement.ViewModel
                     reasonWorking = reason
                 };
 
-                AppData.db.WorkingCalendar.Add(timeOff);
-                AppData.db.SaveChanges();
+                AppData.Db.WorkingCalendar.Add(timeOff);
+                AppData.Db.SaveChanges();
                 calendar.IdWorkingCalendar = timeOff.Id;
             }
 
-            AppData.db.SaveChanges();
+            AppData.Db.SaveChanges();
             LoadEmployeeEvents(SelectedEmployee);
 
             NewEventStartDate = DateTime.Today;
@@ -904,7 +905,7 @@ namespace HrManagement.ViewModel
                 return;
             }
 
-            var dbEmployee = AppData.db.Employee
+            var dbEmployee = AppData.Db.Employee
     .Include(item => item.Calendar)
     .FirstOrDefault(item => item.Id == SelectedEmployee.Id);
             var calendar = dbEmployee?.Calendar;
@@ -915,10 +916,10 @@ namespace HrManagement.ViewModel
 
             if (employeeEvent.VacationCalendarId.HasValue)
             {
-                var vacation = AppData.db.VacationCalendar.FirstOrDefault(item => item.Id == employeeEvent.VacationCalendarId.Value);
+                var vacation = AppData.Db.VacationCalendar.FirstOrDefault(item => item.Id == employeeEvent.VacationCalendarId.Value);
                 if (vacation != null)
                 {
-                    AppData.db.VacationCalendar.Remove(vacation);
+                    AppData.Db.VacationCalendar.Remove(vacation);
                 }
 
                 if (calendar.IdVacationCalendar == employeeEvent.VacationCalendarId.Value)
@@ -929,10 +930,10 @@ namespace HrManagement.ViewModel
 
             if (employeeEvent.LearningCalendarId.HasValue)
             {
-                var learning = AppData.db.LearningCalendar.FirstOrDefault(item => item.Id == employeeEvent.LearningCalendarId.Value);
+                var learning = AppData.Db.LearningCalendar.FirstOrDefault(item => item.Id == employeeEvent.LearningCalendarId.Value);
                 if (learning != null)
                 {
-                    AppData.db.LearningCalendar.Remove(learning);
+                    AppData.Db.LearningCalendar.Remove(learning);
                 }
 
                 if (calendar.IdLearningCalendar == employeeEvent.LearningCalendarId.Value)
@@ -943,10 +944,10 @@ namespace HrManagement.ViewModel
 
             if (employeeEvent.WorkingCalendarId.HasValue)
             {
-                var timeOff = AppData.db.WorkingCalendar.FirstOrDefault(item => item.Id == employeeEvent.WorkingCalendarId.Value);
+                var timeOff = AppData.Db.WorkingCalendar.FirstOrDefault(item => item.Id == employeeEvent.WorkingCalendarId.Value);
                 if (timeOff != null)
                 {
-                    AppData.db.WorkingCalendar.Remove(timeOff);
+                    AppData.Db.WorkingCalendar.Remove(timeOff);
                 }
 
                 if (calendar.IdWorkingCalendar == employeeEvent.WorkingCalendarId.Value)
@@ -955,7 +956,7 @@ namespace HrManagement.ViewModel
                 }
             }
 
-            AppData.db.SaveChanges();
+            AppData.Db.SaveChanges();
             LoadEmployeeEvents(SelectedEmployee);
 
             RefreshEmployeeEventsView();
@@ -1019,7 +1020,7 @@ namespace HrManagement.ViewModel
 
         private bool IsNonWorkingDay(DateTime date)
         {
-            var exception = AppData.db.WorkingCalendar
+            var exception = AppData.Db.WorkingCalendar
                 .FirstOrDefault(item => item.ExceptionDate == date);
 
 
@@ -1034,10 +1035,10 @@ namespace HrManagement.ViewModel
             }
 
             var calendar = new Calendar();
-            AppData.db.Calendar.Add(calendar);
-            AppData.db.SaveChanges();
+            AppData.Db.Calendar.Add(calendar);
+            AppData.Db.SaveChanges();
             employee.CalendarEmployee = calendar.Id;
-            AppData.db.SaveChanges();
+            AppData.Db.SaveChanges();
             return calendar;
         }
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace HrManagement.Model;
 
-namespace HrManagement.Model
+internal static class AppData
 {
-    internal class AppData
-    {
-        public static HrManagementEntities db = new HrManagementEntities();
-    }
+    private static readonly Lazy<HrManagementDbContext> db = new(() => new HrManagementDbContext());
+
+    public static HrManagementDbContext Db => db.Value;
 }
