@@ -621,6 +621,14 @@ namespace HrManagement.Controllers
             FilterEmployeesByDepartment(SelectedDepartmentName);
         }
 
+
+
+        public sealed class EmployeeLookupModel
+        {
+            public int Id { get; set; }
+            public string FullName { get; set; }
+        }
+
         public sealed class EmployeeEventModel
         {
             public int EmployeeId { get; set; }
