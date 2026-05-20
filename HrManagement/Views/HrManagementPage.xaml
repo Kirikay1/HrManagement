@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:converters="clr-namespace:HrManagement.Converters"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -13,7 +12,6 @@
         <SolidColorBrush x:Key="PanelGrayBrush" Color="#E5E5E5"/>
         <SolidColorBrush x:Key="SoftBorderBrush" Color="#D0D0D0"/>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <converters:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
     </Page.Resources>
 
     <Grid Background="White">
@@ -85,10 +83,10 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="ФИО *"/><TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
-                        <TextBlock Grid.Row="1" Text="Телефон"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WorkPhone, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
-                        <TextBlock Grid.Row="2" Text="Email"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
-                        <TextBlock Grid.Row="3" Text="Кабинет"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EmployeeOffice, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}, Converter={StaticResource BooleanNegationConverter}}"/>
+                        <TextBlock Grid.Row="0" Text="ФИО *"/><TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                        <TextBlock Grid.Row="1" Text="Телефон"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WorkPhone, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                        <TextBlock Grid.Row="2" Text="Email"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
+                        <TextBlock Grid.Row="3" Text="Кабинет"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EmployeeOffice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.IsEditing, RelativeSource={RelativeSource AncestorType=Page}}"/>
                         <TextBlock Grid.Row="4" Text="События"/><TextBlock Grid.Row="4" Grid.Column="1" Text="События отключены в MVC-версии" Foreground="Gray"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
